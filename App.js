@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'stretch',
-        backgroundColor: '#fff',
+        backgroundColor: '#303232',
     },
     itemContainer: {
         height: 100,
@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: '#444'
+        backgroundColor: '#9aa'
     },
 });
