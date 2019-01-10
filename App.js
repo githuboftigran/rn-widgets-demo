@@ -1,49 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import BroadcastView from 'rn-broadcast-view';
 
 type Props = {};
 export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            broadcasting: false
+        };
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.itemContainer}>
+                    <Button title={'broadcast'}
+                            onPress={() => this.setState({broadcasting: !this.state.broadcasting})}
+                            style={styles.button}
+                    />
+                    <BroadcastView style={{width: 90, height: 90}} broadcasting={this.state.broadcasting}/>
+                </View>
+                <View style={styles.divider}/>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        backgroundColor: '#fff',
+    },
+    itemContainer: {
+        height: 100,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 4,
+    },
+    button: {
+        height: 44
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#444'
+    },
 });
