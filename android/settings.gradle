@@ -1,4 +1,8 @@
 rootProject.name = 'DemoApp'
+include ':rn-astbelt-activity-indicator-tmp'
+project(':rn-astbelt-activity-indicator-tmp').projectDir = new File(rootProject.projectDir, '../node_modules/rn-astbelt-activity-indicator-tmp/android')
+include ':rn-broadcast-view-tmp'
+project(':rn-broadcast-view-tmp').projectDir = new File(rootProject.projectDir, '../node_modules/rn-broadcast-view-tmp/android')
 include ':rn-broadcast-view'
 project(':rn-broadcast-view').projectDir = new File(rootProject.projectDir, '../node_modules/rn-broadcast-view/android')
 

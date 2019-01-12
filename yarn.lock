@@ -4892,6 +4892,16 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
+rn-astbelt-activity-indicator-tmp@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/rn-astbelt-activity-indicator-tmp/-/rn-astbelt-activity-indicator-tmp-0.0.1.tgz#0bd047fc3874693f075a4c0960e13675d129a2c5"
+  integrity sha512-eRISVRS8fjTY2hZGbEUuZksNmuYo9zUw5djax9PoOiqNbechvb9kwbB+5+s6683n2MIGgHhxNlZniTW3ZdzD9w==
+
+rn-broadcast-view-tmp@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/rn-broadcast-view-tmp/-/rn-broadcast-view-tmp-0.0.3.tgz#6445e7c959062a5baf5d2ef719f6690ea66006d1"
+  integrity sha512-cllGYS6Fg/nyiIsrKSnwfVB0Tirh313/Z6Nw+LhO7uUFjRG0CbItA4GQFFcpBCUloG/K/1Vh+nBxKAFDPZxTxw==
+
 rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
