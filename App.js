@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import {Button, SafeAreaView, Slider, StyleSheet, Text, View} from 'react-native';
 import BroadcastView from 'rn-broadcast-view-tmp';
 import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator-tmp';
+import RangeSlider from 'rn-range-slider-tmp';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -42,8 +43,13 @@ export default class App extends Component<Props> {
                                 minimumValue={minValue}
                                 maximumValue={maxValue}
                         />
-                        <AstbeltActivityIndicator style={{width: 100, height: 100}} progress={this.state.astbeltProgress}/>
+                        <AstbeltActivityIndicator style={{width: 100, height: 100}}
+                                                  progress={this.state.astbeltProgress}/>
 
+                    </View>
+                    <View style={styles.divider}/>
+                    <View style={styles.itemContainer}>
+                        <RangeSlider style={{width: 200, height: 80}}/>
                     </View>
                     <View style={styles.divider}/>
                 </View>
