@@ -1,4 +1,6 @@
 rootProject.name = 'DemoApp'
+include ':rn-range-slider'
+project(':rn-range-slider').projectDir = new File(rootProject.projectDir, '../node_modules/rn-range-slider/android')
 include ':rn-range-slider-tmp'
 project(':rn-range-slider-tmp').projectDir = new File(rootProject.projectDir, '../node_modules/rn-range-slider-tmp/android')
 include ':rn-astbelt-activity-indicator-tmp'

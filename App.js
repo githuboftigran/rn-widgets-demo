@@ -10,7 +10,8 @@ import React, {Component} from 'react';
 import {Button, SafeAreaView, Slider, StyleSheet, Text, View} from 'react-native';
 import BroadcastView from 'rn-broadcast-view-tmp';
 import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator-tmp';
-import RangeSlider from 'rn-range-slider-tmp';
+import RangeSlider from 'rn-range-slider';
+import TextButton from './components/TextButton';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -29,12 +30,13 @@ export default class App extends Component<Props> {
         return (
             <SafeAreaView style={{flex: 1}}>
                 <View style={styles.container}>
+
                     <View style={styles.itemContainer}>
-                        <Button title={'broadcast'}
-                                onPress={() => this.setState({broadcasting: !this.state.broadcasting})}
-                                style={styles.button}
+                        <TextButton text={'broadcast'}
+                                    onPress={() => this.setState({broadcasting: !this.state.broadcasting})}
+                                    containerStyle={styles.button}
                         />
-                        <BroadcastView style={{width: 90, height: 90}} broadcasting={this.state.broadcasting}/>
+                        <BroadcastView style={{width: 100, height: 100}} broadcasting={this.state.broadcasting}/>
                     </View>
                     <View style={styles.divider}/>
                     <View style={styles.itemContainer}>
@@ -49,7 +51,7 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <View style={styles.itemContainer}>
-                        <RangeSlider style={{width: 200, height: 80}}/>
+                        <RangeSlider style={{width: 200, height: 80}} />
                     </View>
                     <View style={styles.divider}/>
                 </View>
@@ -66,14 +68,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#303232',
     },
     itemContainer: {
-        height: 100,
+        height: 120,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 4,
+        paddingLeft: 12,
+        paddingRight: 12,
     },
     button: {
-        height: 44
+        height: 44,
+        width: 100,
+        backgroundColor: '#4286f4',
     },
     divider: {
         height: 1,

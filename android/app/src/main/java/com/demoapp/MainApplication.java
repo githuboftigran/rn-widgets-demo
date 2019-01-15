@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.ashideas.rnrangeslider.RangeSliderPackage;
+import com.ashideas.rnrangeslider.RangeSliderPackage;
 import com.ashideas.rnastbeltactivityindicator.AstbeltActivityIndicatorPackage;
 import com.ashideas.rnbroadcastview.BroadcastViewsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RangeSliderPackage(),
             new RangeSliderPackage(),
             new AstbeltActivityIndicatorPackage(),
             new BroadcastViewsPackage()

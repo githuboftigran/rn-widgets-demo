@@ -137,7 +137,7 @@ android {
 }
 
 dependencies {
-    compile project(':rn-range-slider-tmp')
+    compile project(':rn-range-slider')
     compile project(':rn-astbelt-activity-indicator-tmp')
     compile project(':rn-broadcast-view-tmp')
     implementation fileTree(dir: "libs", include: ["*.jar"])
