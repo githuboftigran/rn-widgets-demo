@@ -7,9 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {Button, SafeAreaView, Slider, StyleSheet, Text, View} from 'react-native';
-import BroadcastView from 'rn-broadcast-view-tmp';
-import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator-tmp';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import BroadcastView from 'rn-broadcast-view';
+import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator';
 import RangeSlider from 'rn-range-slider';
 import TextButton from './components/TextButton';
 
@@ -21,6 +21,8 @@ export default class App extends Component<Props> {
         this.state = {
             broadcasting: false,
             astbeltProgress: 0,
+            rangeLow: 0,
+            rangeHigh: 100,
         };
     }
 
@@ -40,10 +42,12 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <View style={styles.itemContainer}>
-                        <Slider style={{width: 160, height: 40}}
-                                onValueChange={(value) => this.setState({astbeltProgress: minValue + value / (maxValue - minValue)})}
-                                minimumValue={minValue}
-                                maximumValue={maxValue}
+                        <RangeSlider
+                            rangeEnabled={false}
+                            style={{width: 160, height: 70}}
+                            onValueChanged={(value) => this.setState({astbeltProgress: minValue + value / (maxValue - minValue)})}
+                            minValue={minValue}
+                            maxValue={maxValue}
                         />
                         <AstbeltActivityIndicator style={{width: 100, height: 100}}
                                                   progress={this.state.astbeltProgress}/>
@@ -51,7 +55,10 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <View style={styles.itemContainer}>
-                        <RangeSlider style={{width: 200, height: 80}} />
+                        <RangeSlider
+                            style={{width: 200, height: 70}}
+                        onValueChanged={(low, high) => this.setState({rangeLow: low, rangeHigh: high})}/>
+                        <Text style={{fontSize: 20, color: '#fff'}}>{'[' + this.state.rangeLow + ', ' + this.state.rangeHigh + ']'}</Text>
                     </View>
                     <View style={styles.divider}/>
                 </View>

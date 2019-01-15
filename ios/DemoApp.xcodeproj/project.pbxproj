@@ -37,9 +37,9 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		6403B0F9A215483882A14600 /* libRNBroadcastView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E74A86AED4AD40E3882DABC9 /* libRNBroadcastView.a */; };
-		E3D2E6F94C354D3A8BFA1FCE /* libRNAstbeltActivityIndicator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ECE302D3134E92845525F4 /* libRNAstbeltActivityIndicator.a */; };
-		2EB35FEDD61D4B369BB7A91E /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CC47FD5DBD941E69B86B98A /* libRNRangeSlider.a */; };
+		C272CEDDC5C74AC7AEDF16CB /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58028C4250D64D7BA281AE63 /* libRNRangeSlider.a */; };
+		C65210B0E6FE4AF490A80103 /* libRNBroadcastView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */; };
+		E77087A231B042C682687AD1 /* libRNAstbeltActivityIndicator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -345,12 +345,12 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		F29C38F410114A1E86785FDA /* RNBroadcastView.xcodeproj */ = {isa = PBXFileReference; name = "RNBroadcastView.xcodeproj"; path = "../node_modules/rn-broadcast-view-tmp/ios/RNBroadcastView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		E74A86AED4AD40E3882DABC9 /* libRNBroadcastView.a */ = {isa = PBXFileReference; name = "libRNBroadcastView.a"; path = "libRNBroadcastView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		85175A17722F44239BEBC6C6 /* RNAstbeltActivityIndicator.xcodeproj */ = {isa = PBXFileReference; name = "RNAstbeltActivityIndicator.xcodeproj"; path = "../node_modules/rn-astbelt-activity-indicator-tmp/ios/RNAstbeltActivityIndicator.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		40ECE302D3134E92845525F4 /* libRNAstbeltActivityIndicator.a */ = {isa = PBXFileReference; name = "libRNAstbeltActivityIndicator.a"; path = "libRNAstbeltActivityIndicator.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		F84E39B5ABF9422FA2DB3CB3 /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNRangeSlider.xcodeproj"; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		0CC47FD5DBD941E69B86B98A /* libRNRangeSlider.a */ = {isa = PBXFileReference; name = "libRNRangeSlider.a"; path = "libRNRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4F41C06CF5E941019F451A53 /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNRangeSlider.xcodeproj"; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		58028C4250D64D7BA281AE63 /* libRNRangeSlider.a */ = {isa = PBXFileReference; name = "libRNRangeSlider.a"; path = "libRNRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */ = {isa = PBXFileReference; name = "RNBroadcastView.xcodeproj"; path = "../node_modules/rn-broadcast-view/ios/RNBroadcastView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */ = {isa = PBXFileReference; name = "libRNBroadcastView.a"; path = "libRNBroadcastView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */ = {isa = PBXFileReference; name = "RNAstbeltActivityIndicator.xcodeproj"; path = "../node_modules/rn-astbelt-activity-indicator/ios/RNAstbeltActivityIndicator.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */ = {isa = PBXFileReference; name = "libRNAstbeltActivityIndicator.a"; path = "libRNAstbeltActivityIndicator.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,9 +378,9 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				6403B0F9A215483882A14600 /* libRNBroadcastView.a in Frameworks */,
-				E3D2E6F94C354D3A8BFA1FCE /* libRNAstbeltActivityIndicator.a in Frameworks */,
-				2EB35FEDD61D4B369BB7A91E /* libRNRangeSlider.a in Frameworks */,
+				C272CEDDC5C74AC7AEDF16CB /* libRNRangeSlider.a in Frameworks */,
+				C65210B0E6FE4AF490A80103 /* libRNBroadcastView.a in Frameworks */,
+				E77087A231B042C682687AD1 /* libRNAstbeltActivityIndicator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,9 +567,9 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				F29C38F410114A1E86785FDA /* RNBroadcastView.xcodeproj */,
-				85175A17722F44239BEBC6C6 /* RNAstbeltActivityIndicator.xcodeproj */,
-				F84E39B5ABF9422FA2DB3CB3 /* RNRangeSlider.xcodeproj */,
+				4F41C06CF5E941019F451A53 /* RNRangeSlider.xcodeproj */,
+				13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */,
+				7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -591,7 +591,6 @@
 				00E356EF1AD99517003FC87E /* DemoAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				256987EB21E761B000932CBD /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1186,19 +1185,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = DemoAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1206,6 +1195,18 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp.app/DemoApp";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1214,19 +1215,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = DemoAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1234,6 +1225,18 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp.app/DemoApp";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1243,12 +1246,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = DemoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1259,6 +1256,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DemoApp;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1267,12 +1270,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = DemoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1283,6 +1280,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DemoApp;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1298,18 +1301,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = "DemoApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1319,6 +1312,18 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1334,18 +1339,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = "DemoApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1355,6 +1350,18 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1369,18 +1376,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = "DemoApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1390,6 +1387,18 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp-tvOS.app/DemoApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1404,18 +1413,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator-tmp/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 				INFOPLIST_FILE = "DemoApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1425,6 +1424,18 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp-tvOS.app/DemoApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+				);
 			};
 			name = Release;
 		};
