@@ -56,9 +56,14 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <View style={styles.itemContainer}>
                         <RangeSlider
+                            gravity={'center'}
+                            labelStyle={'bubble'}
                             style={{width: 200, height: 70}}
-                        onValueChanged={(low, high) => this.setState({rangeLow: low, rangeHigh: high})}/>
-                        <Text style={{fontSize: 20, color: '#fff'}}>{'[' + this.state.rangeLow + ', ' + this.state.rangeHigh + ']'}</Text>
+                            onValueChanged={(low, high) => this.setState({rangeLow: low, rangeHigh: high})}/>
+                        <Text style={{
+                            fontSize: 20,
+                            color: '#fff'
+                        }}>{'[' + this.state.rangeLow + ', ' + this.state.rangeHigh + ']'}</Text>
                     </View>
                     <View style={styles.divider}/>
                 </View>
