@@ -45,9 +45,13 @@ export default class App extends Component<Props> {
                         <RangeSlider
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
-                            onValueChanged={(value) => this.setState({astbeltProgress: minValue + value / (maxValue - minValue)})}
-                            minValue={minValue}
-                            maxValue={maxValue}
+                            onValueChanged={(low, high, fromUser) => {
+                                if (fromUser) {
+                                    this.setState({astbeltProgress: (low - minValue) / (maxValue - minValue)})
+                                }
+                            }}
+                            min={minValue}
+                            max={maxValue}
                         />
                         <AstbeltActivityIndicator style={{width: 100, height: 100}}
                                                   progress={this.state.astbeltProgress}/>
@@ -59,7 +63,14 @@ export default class App extends Component<Props> {
                             gravity={'center'}
                             labelStyle={'bubble'}
                             style={{width: 200, height: 70}}
-                            onValueChanged={(low, high) => this.setState({rangeLow: low, rangeHigh: high})}/>
+                            min={minValue}
+                            max={maxValue}
+                            step={1}
+                            onValueChanged={(low, high, fromUser) => {
+                                if (fromUser) {
+                                    this.setState({rangeLow: low, rangeHigh: high})
+                                }
+                            }}/>
                         <Text style={{
                             fontSize: 20,
                             color: '#fff'
