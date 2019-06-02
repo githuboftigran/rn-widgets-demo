@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -35,11 +36,11 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* DemoAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DemoAppTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		43E378E009D947DBBD83BEAC /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C65210B0E6FE4AF490A80103 /* libRNBroadcastView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */; };
 		E77087A231B042C682687AD1 /* libRNAstbeltActivityIndicator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */; };
-		43E378E009D947DBBD83BEAC /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,48 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		2514C4EB22A414440053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 442EB4F6B881FBB3967756A8;
+			remoteInfo = RNAstbeltActivityIndicator;
+		};
+		2514C4EE22A414440053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2569889F21E7747E00932CBD;
+			remoteInfo = RNBroadcastView;
+		};
+		2514C4F122A414440053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 442EB9F3E8C19DAC0EC704B0;
+			remoteInfo = RNRangeSlider;
+		};
+		2514C4F322A4149C0053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2569889E21E7747E00932CBD;
+			remoteInfo = RNBroadcastView;
+		};
+		2514C4F522A4149C0053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 442EB2BD046111359D1A3D6D;
+			remoteInfo = RNAstbeltActivityIndicator;
+		};
+		2514C4F722A4149C0053F70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 442EB8D58B59685C32DE0B2B;
+			remoteInfo = RNRangeSlider;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -337,20 +380,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DemoApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DemoApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DemoApp/main.m; sourceTree = "<group>"; };
+		13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBroadcastView.xcodeproj; path = "../node_modules/rn-broadcast-view/ios/RNBroadcastView.xcodeproj"; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DemoApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DemoApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DemoApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DemoApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRangeSlider.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAstbeltActivityIndicator.xcodeproj; path = "../node_modules/rn-astbelt-activity-indicator/ios/RNAstbeltActivityIndicator.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */ = {isa = PBXFileReference; name = "RNBroadcastView.xcodeproj"; path = "../node_modules/rn-broadcast-view/ios/RNBroadcastView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */ = {isa = PBXFileReference; name = "libRNBroadcastView.a"; path = "libRNBroadcastView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */ = {isa = PBXFileReference; name = "RNAstbeltActivityIndicator.xcodeproj"; path = "../node_modules/rn-astbelt-activity-indicator/ios/RNAstbeltActivityIndicator.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */ = {isa = PBXFileReference; name = "libRNAstbeltActivityIndicator.a"; path = "libRNAstbeltActivityIndicator.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNRangeSlider.xcodeproj"; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */ = {isa = PBXFileReference; name = "libRNRangeSlider.a"; path = "libRNRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRangeSlider.xcodeproj; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; };
+		B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBroadcastView.a; sourceTree = "<group>"; };
+		C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAstbeltActivityIndicator.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -526,6 +569,40 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2514C4BE22A4143F0053F70C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */,
+				C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */,
+				5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		2514C4E422A414430053F70C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2514C4EF22A414440053F70C /* libRNBroadcastView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2514C4E622A414430053F70C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2514C4EC22A414440053F70C /* libRNAstbeltActivityIndicator.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2514C4E822A414440053F70C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2514C4F222A414440053F70C /* libRNRangeSlider.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +668,7 @@
 				00E356EF1AD99517003FC87E /* DemoAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				2514C4BE22A4143F0053F70C /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -650,6 +728,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				2514C4F422A4149C0053F70C /* PBXTargetDependency */,
+				2514C4F622A4149C0053F70C /* PBXTargetDependency */,
+				2514C4F822A4149C0053F70C /* PBXTargetDependency */,
 			);
 			name = DemoApp;
 			productName = "Hello World";
@@ -776,6 +857,18 @@
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
+				{
+					ProductGroup = 2514C4E622A414430053F70C /* Products */;
+					ProjectRef = 7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */;
+				},
+				{
+					ProductGroup = 2514C4E422A414430053F70C /* Products */;
+					ProjectRef = 13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */;
+				},
+				{
+					ProductGroup = 2514C4E822A414440053F70C /* Products */;
+					ProjectRef = AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -842,6 +935,27 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2514C4EC22A414440053F70C /* libRNAstbeltActivityIndicator.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAstbeltActivityIndicator.a;
+			remoteRef = 2514C4EB22A414440053F70C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2514C4EF22A414440053F70C /* libRNBroadcastView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBroadcastView.a;
+			remoteRef = 2514C4EE22A414440053F70C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2514C4F222A414440053F70C /* libRNRangeSlider.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRangeSlider.a;
+			remoteRef = 2514C4F122A414440053F70C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */ = {
@@ -1157,6 +1271,21 @@
 			target = 13B07F861A680F5B00A75B9A /* DemoApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
+		2514C4F422A4149C0053F70C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RNBroadcastView;
+			targetProxy = 2514C4F322A4149C0053F70C /* PBXContainerItemProxy */;
+		};
+		2514C4F622A4149C0053F70C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RNAstbeltActivityIndicator;
+			targetProxy = 2514C4F522A4149C0053F70C /* PBXContainerItemProxy */;
+		};
+		2514C4F822A4149C0053F70C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RNRangeSlider;
+			targetProxy = 2514C4F722A4149C0053F70C /* PBXContainerItemProxy */;
+		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* DemoApp-tvOS */;
@@ -1185,9 +1314,19 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = DemoAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1195,16 +1334,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp.app/DemoApp";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Debug;
 		};
@@ -1213,9 +1342,19 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = DemoAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1223,16 +1362,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp.app/DemoApp";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Release;
 		};
@@ -1242,6 +1371,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = DemoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1252,12 +1387,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DemoApp;
 				VERSIONING_SYSTEM = "apple-generic";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Debug;
 		};
@@ -1266,6 +1395,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = DemoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1276,12 +1411,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DemoApp;
 				VERSIONING_SYSTEM = "apple-generic";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Release;
 		};
@@ -1297,8 +1426,18 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = "DemoApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1308,16 +1447,6 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Debug;
 		};
@@ -1333,8 +1462,18 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = "DemoApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1344,16 +1483,6 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Release;
 		};
@@ -1368,8 +1497,18 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = "DemoApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1379,16 +1518,6 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp-tvOS.app/DemoApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Debug;
 		};
@@ -1403,8 +1532,18 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
+					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
+				);
 				INFOPLIST_FILE = "DemoApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1414,16 +1553,6 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoApp-tvOS.app/DemoApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
-					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
-				);
 			};
 			name = Release;
 		};
