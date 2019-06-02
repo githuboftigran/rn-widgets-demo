@@ -23,58 +23,89 @@ export default class App extends Component<Props> {
             astbeltProgress: 0,
             rangeLow: 0,
             rangeHigh: 100,
+            min: 200,
+            max: 1000,
         };
     }
 
     render() {
-        const minValue = 0;
-        const maxValue = 100;
+        const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max } = this.state
         return (
             <SafeAreaView style={{flex: 1}}>
                 <View style={styles.container}>
 
-                    <View style={styles.itemContainer}>
-                        <TextButton text={'broadcast'}
-                                    onPress={() => this.setState({broadcasting: !this.state.broadcasting})}
-                                    containerStyle={styles.button}
+                    <View style={styles.itemContainerHorizontal}>
+                        <TextButton
+                            text={'Broadcast'}
+                            onPress={() => this.setState({broadcasting: !broadcasting})}
+                            containerStyle={styles.button}
                         />
-                        <BroadcastView style={{width: 100, height: 100}} broadcasting={this.state.broadcasting}/>
+                        <BroadcastView style={{width: 100, height: 100}} broadcasting={broadcasting}/>
                     </View>
                     <View style={styles.divider}/>
-                    <View style={styles.itemContainer}>
+                    <View style={styles.itemContainerHorizontal}>
                         <RangeSlider
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
                             onValueChanged={(low, high, fromUser) => {
-                                if (fromUser) {
-                                    this.setState({astbeltProgress: (low - minValue) / (maxValue - minValue)})
-                                }
+                                this.setState({astbeltProgress: low / 100})
                             }}
-                            min={minValue}
-                            max={maxValue}
                         />
                         <AstbeltActivityIndicator style={{width: 100, height: 100}}
-                                                  progress={this.state.astbeltProgress}/>
+                                                  progress={astbeltProgress}/>
 
                     </View>
                     <View style={styles.divider}/>
-                    <View style={styles.itemContainer}>
-                        <RangeSlider
-                            gravity={'center'}
-                            labelStyle={'bubble'}
-                            style={{width: 200, height: 70}}
-                            min={minValue}
-                            max={maxValue}
-                            step={1}
-                            onValueChanged={(low, high, fromUser) => {
-                                if (fromUser) {
-                                    this.setState({rangeLow: low, rangeHigh: high})
-                                }
-                            }}/>
-                        <Text style={{
-                            fontSize: 20,
-                            color: '#fff'
-                        }}>{'[' + this.state.rangeLow + ', ' + this.state.rangeHigh + ']'}</Text>
+                    <View style={styles.rangeSliderItemContainer}>
+
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <RangeSlider
+                              ref={component => this._slider = component}
+                              gravity={'center'}
+                              labelStyle={'bubble'}
+                              style={{width: 200, height: 70}}
+                              min={min}
+                              max={max}
+                              selectionColor="#3df"
+                              blankColor="#f618"
+                              step={20}
+                              onValueChanged={(low, high, fromUser) => {
+                                  this.setState({rangeLow: low, rangeHigh: high})
+                              }}/>
+
+                            <Text style={{
+                                fontSize: 20,
+                                color: '#fff'
+                            }}>{`[${rangeLow}, ${rangeHigh}]`}</Text>
+                        </View>
+
+                        <View style={{flexDirection: 'row', marginTop: 16}}>
+                            <TextButton
+                              text="Set low to 300"
+                              containerStyle={styles.setHighLowButton}
+                              onPress={() => {this._slider.setLowValue(300)}}
+                            />
+
+                            <TextButton
+                              text="Set high to 700"
+                              containerStyle={styles.setHighLowButton}
+                              onPress={() => {this._slider.setHighValue(700)}}
+                            />
+                        </View>
+
+                        <View style={{flexDirection: 'row', marginTop: 16}}>
+                            <TextButton
+                              text="Set min to 500"
+                              containerStyle={styles.setHighLowButton}
+                              onPress={() => this.setState({min: 500})}
+                            />
+
+                            <TextButton
+                              text="Set max to 600"
+                              containerStyle={styles.setHighLowButton}
+                              onPress={() => this.setState({max: 600})}
+                            />
+                        </View>
                     </View>
                     <View style={styles.divider}/>
                 </View>
@@ -90,17 +121,32 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         backgroundColor: '#303232',
     },
-    itemContainer: {
+    itemContainerHorizontal: {
         height: 120,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingLeft: 12,
-        paddingRight: 12,
+        padding: 12,
+    },
+    itemContainerVertical: {
+        height: 160,
+        justifyContent: 'space-between',
+        padding: 12,
+    },
+    rangeSliderItemContainer: {
+        height: 220,
+        justifyContent: 'space-between',
+        padding: 12,
     },
     button: {
         height: 44,
         width: 100,
+        backgroundColor: '#4286f4',
+    },
+    setHighLowButton: {
+        marginHorizontal: 16,
+        height: 44,
+        width: 160,
         backgroundColor: '#4286f4',
     },
     divider: {

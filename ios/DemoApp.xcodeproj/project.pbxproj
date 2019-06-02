@@ -37,9 +37,9 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		C272CEDDC5C74AC7AEDF16CB /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58028C4250D64D7BA281AE63 /* libRNRangeSlider.a */; };
 		C65210B0E6FE4AF490A80103 /* libRNBroadcastView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */; };
 		E77087A231B042C682687AD1 /* libRNAstbeltActivityIndicator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */; };
+		43E378E009D947DBBD83BEAC /* libRNRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -345,12 +345,12 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		4F41C06CF5E941019F451A53 /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNRangeSlider.xcodeproj"; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		58028C4250D64D7BA281AE63 /* libRNRangeSlider.a */ = {isa = PBXFileReference; name = "libRNRangeSlider.a"; path = "libRNRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */ = {isa = PBXFileReference; name = "RNBroadcastView.xcodeproj"; path = "../node_modules/rn-broadcast-view/ios/RNBroadcastView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		B5B5D7AA97454DD0B764CCBC /* libRNBroadcastView.a */ = {isa = PBXFileReference; name = "libRNBroadcastView.a"; path = "libRNBroadcastView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */ = {isa = PBXFileReference; name = "RNAstbeltActivityIndicator.xcodeproj"; path = "../node_modules/rn-astbelt-activity-indicator/ios/RNAstbeltActivityIndicator.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C385A9AE693640FF88292021 /* libRNAstbeltActivityIndicator.a */ = {isa = PBXFileReference; name = "libRNAstbeltActivityIndicator.a"; path = "libRNAstbeltActivityIndicator.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNRangeSlider.xcodeproj"; path = "../node_modules/rn-range-slider/ios/RNRangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5FA6D6DD87F84AD986203617 /* libRNRangeSlider.a */ = {isa = PBXFileReference; name = "libRNRangeSlider.a"; path = "libRNRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,9 +378,9 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				C272CEDDC5C74AC7AEDF16CB /* libRNRangeSlider.a in Frameworks */,
 				C65210B0E6FE4AF490A80103 /* libRNBroadcastView.a in Frameworks */,
 				E77087A231B042C682687AD1 /* libRNAstbeltActivityIndicator.a in Frameworks */,
+				43E378E009D947DBBD83BEAC /* libRNRangeSlider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,9 +567,9 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				4F41C06CF5E941019F451A53 /* RNRangeSlider.xcodeproj */,
 				13CC5C08067D4404BC420AB6 /* RNBroadcastView.xcodeproj */,
 				7AED6C8B3FA44529B2CC9A06 /* RNAstbeltActivityIndicator.xcodeproj */,
+				AE4D6EAA51B744679CDC20CE /* RNRangeSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1198,14 +1198,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Debug;
@@ -1228,14 +1226,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Release;
@@ -1258,9 +1254,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Debug;
@@ -1282,9 +1278,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Release;
@@ -1315,14 +1311,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Debug;
@@ -1353,14 +1347,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Release;
@@ -1390,14 +1382,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Debug;
@@ -1427,14 +1417,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 					"$(SRCROOT)/../node_modules/rn-broadcast-view/ios",
 					"$(SRCROOT)/../node_modules/rn-astbelt-activity-indicator/ios",
+					"$(SRCROOT)/../node_modules/rn-range-slider/ios",
 				);
 			};
 			name = Release;
