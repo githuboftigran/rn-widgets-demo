@@ -3212,9 +3212,9 @@ js-tokens@^3.0.2:
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
 js-yaml@^3.7.0, js-yaml@^3.9.0:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.1.tgz#295c8632a18a23e054cf5c9d3cecafe678167600"
-  integrity sha512-um46hB9wNOKlwkHgiuyEVAybXBjwFUV0Z/RaHJblRd9DXltue9FTYvzCr9ErQrK9Adz5MU4gHWVaNUfdmrC8qA==
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
+  integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
@@ -4892,15 +4892,20 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rn-astbelt-activity-indicator-tmp@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/rn-astbelt-activity-indicator-tmp/-/rn-astbelt-activity-indicator-tmp-0.0.1.tgz#0bd047fc3874693f075a4c0960e13675d129a2c5"
-  integrity sha512-eRISVRS8fjTY2hZGbEUuZksNmuYo9zUw5djax9PoOiqNbechvb9kwbB+5+s6683n2MIGgHhxNlZniTW3ZdzD9w==
+rn-astbelt-activity-indicator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rn-astbelt-activity-indicator/-/rn-astbelt-activity-indicator-1.0.0.tgz#cdd07116bf5c0fb84b93ff3bd4f560581d34e97d"
+  integrity sha512-d8xybBJgZopxihWM0JcFbYiuQX8ODEecUf3GAy/DawdGTdZBCPyDrL9NzFn9jMDG9vYGMuywdUr3jj4H0RwcCg==
 
-rn-broadcast-view-tmp@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/rn-broadcast-view-tmp/-/rn-broadcast-view-tmp-0.0.3.tgz#6445e7c959062a5baf5d2ef719f6690ea66006d1"
-  integrity sha512-cllGYS6Fg/nyiIsrKSnwfVB0Tirh313/Z6Nw+LhO7uUFjRG0CbItA4GQFFcpBCUloG/K/1Vh+nBxKAFDPZxTxw==
+rn-broadcast-view@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rn-broadcast-view/-/rn-broadcast-view-1.0.0.tgz#958d5bfe4f6815ac9d8c06bb4e23ea68e4a2fa5c"
+  integrity sha512-CAfuaI2iezumhnZY9rY3rA+yggCd5OqIz/zpvdkgBGG8kmQacRdBTIyoqPdvGaV2J0E2PVWVywS8EqfTxZER+A==
+
+rn-range-slider@^1.2.1:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.2.4.tgz#5430a4028aab55c2ba114939b4d54a3761c83f61"
+  integrity sha512-XAtC+KyWnM9ebTKrf4XqUzV4eHE9P1qfQtryDwz0CPV8u2mWtC58rEEXeDaB/+OFSqazq98EPLSME7n7Ig3oUA==
 
 rsvp@^3.3.3:
   version "3.6.2"
