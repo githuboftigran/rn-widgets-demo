@@ -1,9 +1,3 @@
 rootProject.name = 'DemoApp'
-include ':rn-range-slider'
-project(':rn-range-slider').projectDir = new File(rootProject.projectDir, '../node_modules/rn-range-slider/android')
-include ':rn-astbelt-activity-indicator'
-project(':rn-astbelt-activity-indicator').projectDir = new File(rootProject.projectDir, '../node_modules/rn-astbelt-activity-indicator/android')
-include ':rn-broadcast-view'
-project(':rn-broadcast-view').projectDir = new File(rootProject.projectDir, '../node_modules/rn-broadcast-view/android')
-
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'

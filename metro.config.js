@@ -1,6 +1,9 @@
-// @flow
-//  Created by tigransahakyan on 2019-07-07.
-//  Copyright © 2019 Quicken Inc. All rights reserved.
+/**
+ * Metro configuration for React Native
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
 module.exports = {
   transformer: {
