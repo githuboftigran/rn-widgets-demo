@@ -45,6 +45,7 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <View style={styles.itemContainerHorizontal}>
                         <RangeSlider
+                          ref={component => this._astSlider = component}
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
                             onValueChanged={(low, high, fromUser) => {
@@ -63,7 +64,7 @@ export default class App extends Component<Props> {
                               ref={component => this._slider = component}
                               gravity={'center'}
                               labelStyle={'bubble'}
-                              style={{width: 200, height: 70}}
+                              style={{width: '80%', height: 70}}
                               min={min}
                               max={max}
                               selectionColor="#3df"
@@ -71,7 +72,10 @@ export default class App extends Component<Props> {
                               step={20}
                               onValueChanged={(low, high, fromUser) => {
                                   this.setState({rangeLow: low, rangeHigh: high})
-                              }}/>
+                              }}
+                              onTouchStart={() => this.setState({rangeLow: 'start'})}
+                              onTouchEnd={() => this.setState({rangeLow: 'end'})}
+                            />
 
                             <Text style={{
                                 fontSize: 20,
@@ -83,7 +87,7 @@ export default class App extends Component<Props> {
                             <TextButton
                               text="Set low to 300"
                               containerStyle={styles.setHighLowButton}
-                              onPress={() => {this._slider.setLowValue(300)}}
+                              onPress={() => {this._astSlider.setLowValue(100)}}
                             />
 
                             <TextButton
