@@ -5399,20 +5399,20 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rn-astbelt-activity-indicator@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rn-astbelt-activity-indicator/-/rn-astbelt-activity-indicator-1.0.0.tgz#cdd07116bf5c0fb84b93ff3bd4f560581d34e97d"
-  integrity sha512-d8xybBJgZopxihWM0JcFbYiuQX8ODEecUf3GAy/DawdGTdZBCPyDrL9NzFn9jMDG9vYGMuywdUr3jj4H0RwcCg==
+rn-astbelt-activity-indicator@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rn-astbelt-activity-indicator/-/rn-astbelt-activity-indicator-1.0.1.tgz#a5c2735a1bcd31a7986261e8e46c4f81f20e834a"
+  integrity sha512-Gt1VjA6xla29dDbPPV/b6RTs70fY3pF96CQDARL5Xh2eI7B0wG79HwzTFAbrp/4DoemO6EEab2Di9ZObyDBU7w==
 
-rn-broadcast-view@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rn-broadcast-view/-/rn-broadcast-view-1.0.0.tgz#958d5bfe4f6815ac9d8c06bb4e23ea68e4a2fa5c"
-  integrity sha512-CAfuaI2iezumhnZY9rY3rA+yggCd5OqIz/zpvdkgBGG8kmQacRdBTIyoqPdvGaV2J0E2PVWVywS8EqfTxZER+A==
+rn-broadcast-view@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rn-broadcast-view/-/rn-broadcast-view-1.0.1.tgz#f99d025e29b8f4ea620abf1c083dab9207cfb4c3"
+  integrity sha512-/mBrp1/c9hGCTjXeN3ErDRuFhsDvSueIEXNdlTlKb/VplXMt3KaGXvIJ9s95M3CoCDR68hNc3r6FtaF4Ms/7Cg==
 
-rn-range-slider@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.2.8.tgz#dbc5e1a5c2cec358579192eb2287b68a9f9c6f8b"
-  integrity sha512-dD9n87zPAToLXseBnax2iyKGAnK5Fso14O/IBlY1dzk3PBdeA38SRB2C8/K5stdzHtV0KesYs70DxyIVzcGkuw==
+rn-range-slider@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.3.0.tgz#8cebcb26645e8c6e6aff602a7d66ab75a687e75d"
+  integrity sha512-iSrr/jX2igPg7RtU9EbAJ6xklgJ8C+jh58pwwtXqvrGHeO6HUj2QzOTMJDecW9Y6PFI07R9sKKH1oLnh7v7bxA==
 
 rsvp@^4.8.4:
   version "4.8.5"

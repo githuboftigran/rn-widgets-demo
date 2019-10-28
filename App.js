@@ -18,13 +18,14 @@ export default class App extends Component<Props> {
 
     constructor(props) {
         super(props);
+        const now = new Date();
         this.state = {
             broadcasting: false,
             astbeltProgress: 0,
-            rangeLow: 0,
-            rangeHigh: 100,
-            min: 200,
-            max: 1000,
+            rangeLow: now,
+            rangeHigh: now,
+            min: now,
+            max: new Date(now.getTime() + 1000 * 60 * 60 * 24),
         };
     }
 
@@ -61,6 +62,7 @@ export default class App extends Component<Props> {
 
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                             <RangeSlider
+                              valueType="time"
                               ref={component => this._slider = component}
                               gravity={'center'}
                               labelStyle={'bubble'}
@@ -69,18 +71,17 @@ export default class App extends Component<Props> {
                               max={max}
                               selectionColor="#3df"
                               blankColor="#f618"
-                              step={20}
+                              step={1000 * 60 * 60}
+                              textFormat="HH:mm"
                               onValueChanged={(low, high, fromUser) => {
                                   this.setState({rangeLow: low, rangeHigh: high})
                               }}
-                              onTouchStart={() => this.setState({rangeLow: 'start'})}
-                              onTouchEnd={() => this.setState({rangeLow: 'end'})}
                             />
 
                             <Text style={{
                                 fontSize: 20,
                                 color: '#fff'
-                            }}>{`[${rangeLow}, ${rangeHigh}]`}</Text>
+                            }}>{`[${rangeLow.getHours()}, ${rangeHigh.getHours()}]`}</Text>
                         </View>
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>

@@ -12,9 +12,9 @@
   "dependencies": {
     "react": "16.9.0",
     "react-native": "0.61.1",
-    "rn-astbelt-activity-indicator": "^1.0.0",
-    "rn-broadcast-view": "^1.0.0",
-    "rn-range-slider": "^1.2.8"
+    "rn-astbelt-activity-indicator": "^1.0.1",
+    "rn-broadcast-view": "^1.0.1",
+    "rn-range-slider": "^1.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

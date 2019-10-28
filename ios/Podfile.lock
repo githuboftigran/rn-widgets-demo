@@ -217,6 +217,12 @@ PODS:
     - React-cxxreact (= 0.61.1)
     - React-jsi (= 0.61.1)
     - ReactCommon/jscallinvoker (= 0.61.1)
+  - rn-astbelt-activity-indicator (1.0.1):
+    - React
+  - rn-broadcast-view (1.0.1):
+    - React
+  - rn-range-slider (1.3.0):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -247,6 +253,9 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - rn-astbelt-activity-indicator (from `../node_modules/rn-astbelt-activity-indicator`)
+  - rn-broadcast-view (from `../node_modules/rn-broadcast-view`)
+  - rn-range-slider (from `../node_modules/rn-range-slider`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -302,6 +311,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  rn-astbelt-activity-indicator:
+    :path: "../node_modules/rn-astbelt-activity-indicator"
+  rn-broadcast-view:
+    :path: "../node_modules/rn-broadcast-view"
+  rn-range-slider:
+    :path: "../node_modules/rn-range-slider"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -331,6 +346,9 @@ SPEC CHECKSUMS:
   React-RCTText: 81b62b4e7f11531a5154e4daa5617670d5a2d5de
   React-RCTVibration: 8be61459e3749d1fb02cf414edd05b3007622882
   ReactCommon: 4fba5be89efdf0b5720e0adb3d8d7edf6e532db0
+  rn-astbelt-activity-indicator: 2a27ef33768471b65a3858098980f65c4b9a2e39
+  rn-broadcast-view: a9a6c022fc7d517f90cfaa6e4ee3469a73137586
+  rn-range-slider: 0b4800dcb93cfdc3a79bfe31a34a3132acaeb150
   Yoga: d8c572ddec8d05b7dba08e4e5f1924004a177078
 
 PODFILE CHECKSUM: 0ad160eed33a9fc5032151daf1b9a8bf9ba372fa
