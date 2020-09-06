@@ -12,6 +12,7 @@ import BroadcastView from 'rn-broadcast-view';
 import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator';
 import RangeSlider from 'rn-range-slider';
 import TextButton from './components/TextButton';
+import RangeSlider2 from './Slider';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -46,7 +47,7 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <View style={styles.itemContainerHorizontal}>
                         <RangeSlider
-                          ref={component => this._astSlider = component}
+                            ref={component => this._astSlider = component}
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
                             onValueChanged={(low, high, fromUser) => {
@@ -58,24 +59,24 @@ export default class App extends Component<Props> {
 
                     </View>
                     <View style={styles.divider}/>
-                    <View style={styles.rangeSliderItemContainer}>
+                    <View style={[styles.rangeSliderItemContainer, {marginTop: 16}]}>
 
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                             <RangeSlider
-                              valueType="time"
-                              ref={component => this._slider = component}
-                              gravity={'center'}
-                              labelStyle={'bubble'}
-                              style={{width: '80%', height: 70}}
-                              min={min}
-                              max={max}
-                              selectionColor="#3df"
-                              blankColor="#f618"
-                              step={1000 * 60 * 60}
-                              textFormat="HH:mm"
-                              onValueChanged={(low, high, fromUser) => {
-                                  this.setState({rangeLow: low, rangeHigh: high})
-                              }}
+                                valueType="time"
+                                ref={component => this._slider = component}
+                                gravity={'center'}
+                                labelStyle={'none'}
+                                style={{width: '80%', height: 70}}
+                                min={min}
+                                max={max}
+                                selectionColor="#3df"
+                                blankColor="#f618"
+                                step={1000 * 60 * 60}
+                                textFormat="HH:mm"
+                                onValueChanged={(low, high, fromUser) => {
+                                    this.setState({rangeLow: low, rangeHigh: high})
+                                }}
                             />
 
                             <Text style={{
@@ -86,33 +87,39 @@ export default class App extends Component<Props> {
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>
                             <TextButton
-                              text="Set low to 300"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => {this._astSlider.setLowValue(100)}}
+                                text="Set low to 300"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={() => {this._astSlider.setLowValue(100)}}
                             />
 
                             <TextButton
-                              text="Set high to 700"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => {this._slider.setHighValue(700)}}
+                                text="Set high to 700"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={() => {this._slider.setHighValue(700)}}
                             />
                         </View>
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>
                             <TextButton
-                              text="Set min to 500"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => this.setState({min: 500})}
+                                text="Set min to 500"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={() => this.setState({min: 500})}
                             />
 
                             <TextButton
-                              text="Set max to 600"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => this.setState({max: 600})}
+                                text="Set max to 600"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={() => this.setState({max: 600})}
                             />
                         </View>
                     </View>
                     <View style={styles.divider}/>
+                    <RangeSlider2
+                      style={{marginLeft: 50, width: 300}}
+                      min={0}
+                      max={100}
+                      step={10}
+                    />
                 </View>
             </SafeAreaView>
         );
@@ -156,6 +163,6 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: '#9aa'
+        backgroundColor: '#9aa',
     },
 });
