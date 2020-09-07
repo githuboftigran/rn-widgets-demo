@@ -7,14 +7,17 @@ import { getInOutRanges, isLowCloser } from './helpers';
 
 const trueFunc = () => true;
 
-const Slider = ({ style, min, max, step }) => {
+const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged }) => {
   const [thumbWidth, setThumbWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [low, setLow] = useState(0);
-  const [high, setHigh] = useState(100);
+  const [lowState, setLow] = useState(0);
+  const [highState, setHigh] = useState(100);
 
-  const [lowThumbX, setLowThumbX] = useState();
-  const [highThumbX, setHighThumbX] = useState();
+  const low = lowProp === undefined ? lowState : lowProp;
+  const high = highProp === undefined ? highState : highProp;
+
+  const [lowThumbX, setLowThumbX] = useState(new Animated.Value(0));
+  const [highThumbX, setHighThumbX] = useState(new Animated.Value(0));
 
   const lowTransform = !lowThumbX ? null : { transform: [{translateX: lowThumbX}]};
   const highTransform = !highThumbX ? null : { transform: [{translateX: highThumbX}]};
@@ -34,14 +37,22 @@ const Slider = ({ style, min, max, step }) => {
   const highRef = useRef();
   const minRef = useRef();
   const maxRef = useRef();
+  const stepRef = useRef();
 
   // Always update values of refs so oan responder will have updated values
   lowRef.current = low;
   highRef.current = high;
   minRef.current = min;
   maxRef.current = max;
+  stepRef.current = step;
 
   const { panHandlers } = useMemo(() => {
+    let isLow;
+    const onPanResponderRelease = ({ nativeEvent }) => {
+      const { locationX } = nativeEvent;
+      const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
+      thumbXSetter(new Animated.Value(locationX));
+    };
     return PanResponder.create({
       onStartShouldSetPanResponder: trueFunc,
       onStartShouldSetPanResponderCapture: trueFunc,
@@ -63,12 +74,13 @@ const Slider = ({ style, min, max, step }) => {
         const high = highRef.current;
         const min = minRef.current;
         const max = maxRef.current;
+        const step = stepRef.current;
 
         const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
         const highPosition = thumbWidth / 2 + (high - min) / (max - min) * (containerWidth - thumbWidth);
 
         const allSteps = Math.round((max - min) / step);
-        const isLow = isLowCloser(downX, lowPosition, highPosition);
+        isLow = isLowCloser(downX, lowPosition, highPosition);
         const { inputRange, outputRange } = getInOutRanges(lowPosition, highPosition, isLow, allSteps, containerWidth, thumbWidth);
         const valueSetter = isLow ? setLow : setHigh;
         const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
@@ -76,12 +88,16 @@ const Slider = ({ style, min, max, step }) => {
         pointerX.removeAllListeners();
         const animatedX = Animated.subtract(pointerX, containerX).interpolate({ inputRange, outputRange, extrapolate: 'clamp' });
         animatedX.addListener((() => {
+          // Set value with setter hook only if it's changed to avoid unnecessary re-renders.
           let lastValue = Number.NaN;
           return ({ value }) => {
             const numberValue = min + (max - min) * value / (containerWidth - thumbWidth);
             if (numberValue !== lastValue) {
               lastValue = numberValue;
               valueSetter(lastValue);
+              if (onValueChanged) {
+                onValueChanged(isLow ? lastValue : low, isLow ? high : lastValue);
+              }
             }
           };
         })());
@@ -91,12 +107,9 @@ const Slider = ({ style, min, max, step }) => {
 
       onPanResponderMove: Animated.event([null, { moveX: pointerX }]),
 
-      onPanResponderRelease: () => {
-        setLowThumbX();
-        setHighThumbX();
-      },
+      onPanResponderRelease,
     });
-  }, [containerWidth, pointerX, setHigh, setLow, step, thumbWidth]);
+  }, [pointerX, thumbWidth, containerWidth, onValueChanged]);
 
   useEffect(() => {
     if (!thumbWidth || !containerWidth) {
@@ -104,11 +117,11 @@ const Slider = ({ style, min, max, step }) => {
     }
     const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
     const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
-    if (!lowThumbX) {
-      setLowThumbX(new Animated.Value(lowPosition));
+    if (lowThumbX.setValue) {
+      lowThumbX.setValue(lowPosition);
     }
-    if (!highThumbX) {
-      setHighThumbX(new Animated.Value(highPosition));
+    if (highThumbX.setValue) {
+      highThumbX.setValue(highPosition);
     }
   }, [min, max, low, high, lowThumbX, highThumbX, thumbWidth, containerWidth]);
 
@@ -131,7 +144,7 @@ const Slider = ({ style, min, max, step }) => {
       >
         <Thumb/>
       </Animated.View>
-      <View { ...panHandlers } style={styles.touchableArea}/>
+      <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
     </View>
   );
 };

@@ -27,11 +27,21 @@ export default class App extends Component<Props> {
             rangeHigh: now,
             min: now,
             max: new Date(now.getTime() + 1000 * 60 * 60 * 24),
+            v2Low: 0,
+            v2High: 100,
         };
     }
 
+    handleV2Set20 = () => {
+        this.setState({v2Low: 20});
+    }
+
+    handleV2ValueChange = (low, high) => {
+        this.setState({ v2Low: low, v2High: high });
+    }
+
     render() {
-        const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max } = this.state
+        const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max, v2Low, v2High } = this.state;
         return (
             <SafeAreaView style={{flex: 1}}>
                 <View style={styles.container}>
@@ -119,7 +129,21 @@ export default class App extends Component<Props> {
                       min={0}
                       max={100}
                       step={10}
+                      low={v2Low}
+                      high={v2High}
+                      onValueChanged={this.handleV2ValueChange}
                     />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={{
+                            fontSize: 20,
+                            color: '#fff',
+                        }}>{v2Low}</Text>
+                        <TextButton text={'SetLow to 20'} onPress={this.handleV2Set20}/>
+                        <Text style={{
+                            fontSize: 20,
+                            color: '#fff',
+                        }}>{v2High}</Text>
+                    </View>
                 </View>
             </SafeAreaView>
         );
