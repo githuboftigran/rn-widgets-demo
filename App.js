@@ -137,12 +137,12 @@ export default class App extends Component<Props> {
                         <Text style={{
                             fontSize: 20,
                             color: '#fff',
-                        }}>{v2Low}</Text>
+                        }}>{Math.round(v2Low)}</Text>
                         <TextButton text={'SetLow to 20'} onPress={this.handleV2Set20}/>
                         <Text style={{
                             fontSize: 20,
                             color: '#fff',
-                        }}>{v2High}</Text>
+                        }}>{Math.round(v2High)}</Text>
                     </View>
                 </View>
             </SafeAreaView>
@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     rangeSliderItemContainer: {
-        height: 220,
         justifyContent: 'space-between',
         padding: 12,
     },

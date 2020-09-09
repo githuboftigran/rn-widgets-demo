@@ -1,8 +1,10 @@
-import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
-import {Animated, PanResponder, View} from 'react-native';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Animated, PanResponder, View } from 'react-native';
 import styles from './styles';
 import Rails from './Rails';
 import Thumb from './Thumb';
+import Label from './Label';
+import {useLabelBounds, useLowHigh, useWidthLayout} from './hooks';
 import { getInOutRanges, isLowCloser } from './helpers';
 
 const trueFunc = () => true;
@@ -10,49 +12,32 @@ const trueFunc = () => true;
 const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged }) => {
   const [thumbWidth, setThumbWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [lowState, setLow] = useState(0);
-  const [highState, setHigh] = useState(100);
 
-  const low = lowProp === undefined ? lowState : lowProp;
-  const high = highProp === undefined ? highState : highProp;
+  const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
 
   const [lowThumbX, setLowThumbX] = useState(new Animated.Value(0));
   const [highThumbX, setHighThumbX] = useState(new Animated.Value(0));
 
+  const pointerX = useRef(new Animated.Value(0)).current;
+  const inPropsRef = useRef({ low, high, min, max, step });
+  const gestureStateRef = useRef({
+    isLow: true,
+    lastTouch: Number.NaN,
+    touchPointer: undefined,
+  });
+  const { isLow } = gestureStateRef.current;
+  // Always update values of refs so oan responder will have updated values
+  Object.assign(inPropsRef.current, { low, high, min, max, step });
+
   const lowTransform = !lowThumbX ? null : { transform: [{translateX: lowThumbX}]};
   const highTransform = !highThumbX ? null : { transform: [{translateX: highThumbX}]};
-  const handleContainerLayout = useCallback(({ nativeEvent }) => {
-    const { layout: {width}} = nativeEvent;
-    setContainerWidth(width);
-  }, []);
 
-  const handleThumbLayout = useCallback(({ nativeEvent }) => {
-    const { layout: {width}} = nativeEvent;
-    setThumbWidth(width);
-  }, []);
+  const { handleLabelLayout, labelTransform } = useLabelBounds(thumbWidth, isLow ? lowThumbX : highThumbX);
 
-  const pointerX = useRef(new Animated.Value(0)).current;
-
-  const lowRef = useRef();
-  const highRef = useRef();
-  const minRef = useRef();
-  const maxRef = useRef();
-  const stepRef = useRef();
-
-  // Always update values of refs so oan responder will have updated values
-  lowRef.current = low;
-  highRef.current = high;
-  minRef.current = min;
-  maxRef.current = max;
-  stepRef.current = step;
+  const handleContainerLayout = useWidthLayout(setContainerWidth);
+  const handleThumbLayout = useWidthLayout(setThumbWidth);
 
   const { panHandlers } = useMemo(() => {
-    let isLow;
-    const onPanResponderRelease = ({ nativeEvent }) => {
-      const { locationX } = nativeEvent;
-      const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
-      thumbXSetter(new Animated.Value(locationX));
-    };
     return PanResponder.create({
       onStartShouldSetPanResponder: trueFunc,
       onStartShouldSetPanResponderCapture: trueFunc,
@@ -70,17 +55,14 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         const { locationX: downX, pageX } = nativeEvent;
         const containerX = pageX - downX;
 
-        const low = lowRef.current;
-        const high = highRef.current;
-        const min = minRef.current;
-        const max = maxRef.current;
-        const step = stepRef.current;
+        const { low, high, min, max, step } = inPropsRef.current;
 
         const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
         const highPosition = thumbWidth / 2 + (high - min) / (max - min) * (containerWidth - thumbWidth);
 
         const allSteps = Math.round((max - min) / step);
-        isLow = isLowCloser(downX, lowPosition, highPosition);
+        const isLow = isLowCloser(downX, lowPosition, highPosition);
+        gestureStateRef.current.isLow = isLow;
         const { inputRange, outputRange } = getInOutRanges(lowPosition, highPosition, isLow, allSteps, containerWidth, thumbWidth);
         const valueSetter = isLow ? setLow : setHigh;
         const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
@@ -107,9 +89,14 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
 
       onPanResponderMove: Animated.event([null, { moveX: pointerX }]),
 
-      onPanResponderRelease,
+      onPanResponderRelease: ({ nativeEvent }) => {
+        const { locationX } = nativeEvent;
+        const { isLow } = gestureStateRef.current;
+        const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
+        thumbXSetter(new Animated.Value(locationX));
+      },
     });
-  }, [pointerX, thumbWidth, containerWidth, onValueChanged]);
+  }, [pointerX, thumbWidth, containerWidth, setLow, setHigh, onValueChanged]);
 
   useEffect(() => {
     if (!thumbWidth || !containerWidth) {
@@ -143,6 +130,15 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         style={[styles.highThumbContainer, highTransform]}
       >
         <Thumb/>
+      </Animated.View>
+      <Animated.View
+        style={{...styles.labelContainer, ...labelTransform}}
+
+      >
+        <Label
+          text={`Value: ${Math.round(isLow ? low : high)}`}
+          onLayout={handleLabelLayout}
+        />
       </Animated.View>
       <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
     </View>

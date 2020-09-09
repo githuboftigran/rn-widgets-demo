@@ -16,6 +16,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  labelContainer: {
+    position: 'absolute',
+  },
   touchableArea: {
     ...StyleSheet.absoluteFillObject,
   },
