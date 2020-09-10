@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import {getInOutRanges} from './helpers';
+import {Animated} from 'react-native';
 export const useLowHigh = (lowProp, highProp, min, max) => {
   const [lowState, setLow] = useState(min);
   const [highState, setHigh] = useState(max);
@@ -10,7 +12,7 @@ export const useLowHigh = (lowProp, highProp, min, max) => {
   return { low, high, setLow, setHigh };
 };
 
-export const useLabelBounds = (thumbWidth, translateX) => {
+export const useLabelBounds = (translateX, xOffset, thumbWidth, containerWidth, allSteps) => {
 
   const [labelBounds, setLabelBounds] = useState({ width: 0, height: 0 });
 
@@ -21,18 +23,25 @@ export const useLabelBounds = (thumbWidth, translateX) => {
     }
   }, [labelBounds.width, labelBounds.height]);
 
-  const labelTransform = {
-    left: -(labelBounds.width - thumbWidth) / 2,
-    top: -labelBounds.height,
-    transform: [{ translateX }],
-  };
+  let labelTransform;
+  if (thumbWidth && containerWidth && allSteps) {
+    const { inputRange, outputRange } = getInOutRanges(thumbWidth / 2, containerWidth - thumbWidth / 2, allSteps, containerWidth, thumbWidth);
+    labelTransform = {
+      top: -labelBounds.height,
+      left: -labelBounds.width / 2,
+      transform: [{ translateX: Animated.subtract(translateX, xOffset).interpolate({ inputRange, outputRange }) }],
+    };
+  }
 
   return { handleLabelLayout, labelTransform };
 };
 
-export const useWidthLayout = setter => {
+export const useWidthLayout = (widthSetter, xSetter) => {
   return useCallback(({ nativeEvent }) => {
-    const { layout: {width}} = nativeEvent;
-    setter(width);
-  }, [setter]);
+    const { layout: {x, width}} = nativeEvent;
+    widthSetter(width);
+    if (xSetter) {
+      xSetter(x);
+    }
+  }, [widthSetter, xSetter]);
 };

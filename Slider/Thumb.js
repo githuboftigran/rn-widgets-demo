@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-export const THUMB_RADIUS = 12;
+const THUMB_RADIUS = 12;
 
 const Thumb = () => {
   return (

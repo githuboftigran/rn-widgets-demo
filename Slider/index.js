@@ -12,6 +12,7 @@ const trueFunc = () => true;
 const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged }) => {
   const [thumbWidth, setThumbWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [containerX, setContainerX] = useState(0);
 
   const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
 
@@ -21,6 +22,7 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const inPropsRef = useRef({ low, high, min, max, step });
   const gestureStateRef = useRef({
     isLow: true,
+    lastValue: Number.NaN,
     lastTouch: Number.NaN,
     touchPointer: undefined,
   });
@@ -29,12 +31,13 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   Object.assign(inPropsRef.current, { low, high, min, max, step });
   const pointerX = useRef(new Animated.Value(0)).current;
 
-  const lowTransform = !lowThumbX ? null : { transform: [{translateX: lowThumbX}]};
-  const highTransform = !highThumbX ? null : { transform: [{translateX: highThumbX}]};
+  const lowTransform = !lowThumbX ? null : { left: -thumbWidth / 2, transform: [{translateX: lowThumbX}]};
+  const highTransform = !highThumbX ? null : { left: -thumbWidth / 2, transform: [{translateX: highThumbX}]};
 
-  const { handleLabelLayout, labelTransform } = useLabelBounds(thumbWidth, isLow ? lowThumbX : highThumbX);
+  const allSteps = Math.round((max - min) / step) + 1;
+  const { handleLabelLayout, labelTransform } = useLabelBounds(pointerX, containerX, thumbWidth, containerWidth, allSteps);
 
-  const handleContainerLayout = useWidthLayout(setContainerWidth);
+  const handleContainerLayout = useWidthLayout(setContainerWidth, setContainerX);
   const handleThumbLayout = useWidthLayout(setThumbWidth);
 
   const { panHandlers } = useMemo(() => {
@@ -60,10 +63,21 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
         const highPosition = thumbWidth / 2 + (high - min) / (max - min) * (containerWidth - thumbWidth);
 
-        const allSteps = Math.round((max - min) / step);
+        const allSteps = Math.round((max - min) / step) + 1;
         const isLow = isLowCloser(downX, lowPosition, highPosition);
         gestureStateRef.current.isLow = isLow;
-        const { inputRange, outputRange } = getInOutRanges(lowPosition, highPosition, isLow, allSteps, containerWidth, thumbWidth);
+
+        let inStart;
+        let inEnd;
+        if (isLow) {
+          inStart = thumbWidth / 2;
+          inEnd = highPosition;
+        } else {
+          inStart = lowPosition;
+          inEnd = containerWidth - thumbWidth / 2;
+        }
+
+        const { inputRange, outputRange } = getInOutRanges(inStart, inEnd, allSteps, containerWidth, thumbWidth);
         const valueSetter = isLow ? setLow : setHigh;
         const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
 
@@ -73,10 +87,12 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
           // Set value with setter hook only if it's changed to avoid unnecessary re-renders.
           let lastValue = Number.NaN;
           return ({ value }) => {
-            const numberValue = min + (max - min) * value / (containerWidth - thumbWidth);
+            const numberValue = min + (max - min) * (value - thumbWidth / 2) / (containerWidth - thumbWidth);
             if (numberValue !== lastValue) {
               lastValue = numberValue;
               valueSetter(lastValue);
+              gestureStateRef.current.lastValue = lastValue;
+              gestureStateRef.current.lastTouch = value;
               if (onValueChanged) {
                 onValueChanged(isLow ? lastValue : low, isLow ? high : lastValue);
               }
@@ -84,16 +100,16 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
           };
         })());
         thumbXSetter(animatedX);
-        pointerX.setValue(pageX);
+        setTimeout(() => pointerX.setValue(pageX), 0);
       },
 
       onPanResponderMove: Animated.event([null, { moveX: pointerX }]),
 
-      onPanResponderRelease: ({ nativeEvent }) => {
-        const { locationX } = nativeEvent;
+      onPanResponderRelease: () => {
         const { isLow } = gestureStateRef.current;
         const thumbXSetter = isLow ? setLowThumbX : setHighThumbX;
-        thumbXSetter(new Animated.Value(locationX));
+        const animatedValue = new Animated.Value(gestureStateRef.current.lastTouch);
+        thumbXSetter(animatedValue);
       },
     });
   }, [pointerX, thumbWidth, containerWidth, setLow, setHigh, onValueChanged]);
@@ -102,8 +118,8 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
     if (!thumbWidth || !containerWidth) {
       return;
     }
-    const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
-    const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
+    const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
+    const highPosition = thumbWidth / 2 + (high - min) / (max - min) * (containerWidth - thumbWidth);
     if (lowThumbX.setValue) {
       lowThumbX.setValue(lowPosition);
     }
@@ -117,9 +133,6 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
       style={[style, styles.root]}
       onLayout={handleContainerLayout}
     >
-      <View style={styles.railsContainer}>
-        <Rails/>
-      </View>
       <Animated.View
         style={[styles.lowThumbContainer, lowTransform]}
         onLayout={handleThumbLayout}
@@ -131,10 +144,10 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
       >
         <Thumb/>
       </Animated.View>
-      <Animated.View
-        style={{...styles.labelContainer, ...labelTransform}}
-
-      >
+      <View style={[styles.railsContainer, { marginHorizontal: thumbWidth / 2 }]}>
+        <Rails/>
+      </View>
+      <Animated.View style={[styles.labelContainer, labelTransform]}>
         <Label
           text={`Value: ${Math.round(isLow ? low : high)}`}
           onLayout={handleLabelLayout}
