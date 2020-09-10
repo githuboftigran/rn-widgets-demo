@@ -4,7 +4,7 @@ import styles from './styles';
 import Rails from './Rails';
 import Thumb from './Thumb';
 import Label from './Label';
-import {useLabelBounds, useLowHigh, useWidthLayout} from './hooks';
+import { useLabelBounds, useLowHigh, useWidthLayout } from './hooks';
 import { getInOutRanges, isLowCloser } from './helpers';
 
 const trueFunc = () => true;
@@ -18,7 +18,6 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const [lowThumbX, setLowThumbX] = useState(new Animated.Value(0));
   const [highThumbX, setHighThumbX] = useState(new Animated.Value(0));
 
-  const pointerX = useRef(new Animated.Value(0)).current;
   const inPropsRef = useRef({ low, high, min, max, step });
   const gestureStateRef = useRef({
     isLow: true,
@@ -28,6 +27,7 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const { isLow } = gestureStateRef.current;
   // Always update values of refs so oan responder will have updated values
   Object.assign(inPropsRef.current, { low, high, min, max, step });
+  const pointerX = useRef(new Animated.Value(0)).current;
 
   const lowTransform = !lowThumbX ? null : { transform: [{translateX: lowThumbX}]};
   const highTransform = !highThumbX ? null : { transform: [{translateX: highThumbX}]};
