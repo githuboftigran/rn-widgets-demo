@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { Animated, PanResponder, View } from 'react-native';
 import styles from './styles';
 import Rails from './Rails';
@@ -17,11 +17,13 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const labelXRef = useRef(new Animated.Value(0));
   const labelYRef = useRef(new Animated.Value(0));
   const labelWidthRef = useRef(0);
+  const labelHeightRef = useRef(0);
   const { current: lowThumbX } = lowThumbXRef;
   const { current: highThumbX } = highThumbXRef;
   const { current: labelX } = labelXRef;
   const { current: labelY } = labelYRef;
   const gestureStateRef = useRef({ isLow: true, lastValue: 0, lastPosition: 0 });
+  const [isPressed, setPressed] = useState(false);
 
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
@@ -42,16 +44,28 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const handleContainerLayout = useWidthLayout(containerWidthRef, handleFixedLayoutsChange);
   const handleThumbLayout = useWidthLayout(thumbWidthRef, handleFixedLayoutsChange);
 
-  const handleLabelLayoutChange = useCallback((width, height) => {
+  const updateLabel = thumbPositionInView => {
+    const { current: width } = labelWidthRef;
+    const { current: height } = labelHeightRef;
+    labelXRef.current.setValue(clamp(thumbPositionInView - width / 2, 0, containerWidthRef.current - width));
     labelYRef.current.setValue(-height);
-    labelXRef.current.setValue(gestureStateRef.current.lastPosition - width / 2 + thumbWidthRef.current / 2);
+  };
+
+  const handleLabelLayoutChange = (width, height) => {
     labelWidthRef.current = width;
-  }, []);
+    labelHeightRef.current = height;
+    updateLabel(gestureStateRef.current.lastPosition);
+  };
   const [labelBoundsRef, handleLabelLayout] = useBoundsLayout(handleLabelLayoutChange);
 
   const lowTransform = { transform: [{translateX: lowThumbX}]};
   const highTransform = { transform: [{translateX: highThumbX}]};
-  const labelTransform = { transform: [{translateX: labelX}, {translateY: labelY}]};
+  const labelTransform = {
+    transform: [
+      {translateX: labelX},
+      {translateY: labelY},
+    ],
+  };
 
   const inPropsRef = useRef({ low, high, min, max, step });
   Object.assign(inPropsRef.current, { low, high, min, max, step });
@@ -69,13 +83,13 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
       onPanResponderTerminationRequest: trueFunc,
       onPanResponderTerminate: trueFunc,
       onShouldBlockNativeResponder: trueFunc,
-      onPanResponderRelease: trueFunc,
 
       onPanResponderGrant: ({ nativeEvent }, gestureState) => {
         const { numberActiveTouches } = gestureState;
         if (numberActiveTouches > 1) {
           return;
         }
+        setPressed(true);
         const { current: lowThumbX } = lowThumbXRef;
         const { current: highThumbX } = highThumbXRef;
         const { locationX: downX, pageX } = nativeEvent;
@@ -91,30 +105,43 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         const isLow = isLowCloser(downX, lowPosition, highPosition);
         gestureStateRef.current.isLow = isLow;
 
+        const handlePositionChange = (positionInView) => {
+          const value = getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step);
+          const availableSpace = containerWidth - thumbWidth;
+          const absolutePosition = clamp((value - min) / (max - min) * availableSpace, 0, availableSpace);
+          gestureStateRef.current.lastValue = value;
+          gestureStateRef.current.lastPosition = absolutePosition + thumbWidth / 2;
+          (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
+          if (onValueChanged) {
+            onValueChanged(isLow ? value : low, isLow ? high : value);
+            (isLow ? setLow : setHigh)(value);
+            updateLabel(gestureStateRef.current.lastPosition);
+          }
+        };
+        handlePositionChange(downX);
         pointerX.removeAllListeners();
         pointerX.addListener(({ value: pointerPosition }) => {
           const positionInView = pointerPosition - containerX;
-          const value = getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step);
-          const availableSpace = containerWidth - thumbWidth;
-          const absolutePosition = clamp((value - min) / (max - min) * availableSpace, 0, availableSpace) ;
-
-          // Set value with setter hook only if it's changed to avoid unnecessary re-renders.
-          if (value !== gestureStateRef.current.lastValue) {
-            gestureStateRef.current.lastValue = value;
-            gestureStateRef.current.lastPosition = absolutePosition;
-            (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
-            if (onValueChanged) {
-              onValueChanged(isLow ? value : low, isLow ? high : value);
-              (isLow ? setLow : setHigh)(value);
-              labelXRef.current.setValue(absolutePosition - labelWidthRef.current / 2 + thumbWidth / 2);
-            }
-          }
+          handlePositionChange(positionInView);
         });
       },
 
       onPanResponderMove: Animated.event([null, { moveX: pointerX }]),
+
+      onPanResponderRelease: () => {
+        setPressed(false);
+      },
     });
   }, [pointerX, onValueChanged, setLow, setHigh]);
+
+  const label = !isPressed ? null : (
+    <Animated.View style={[styles.labelContainer, labelTransform]}>
+      <Label
+        text={`Value: ${Math.round(isLow ? low : high)}`}
+        onLayout={handleLabelLayout}
+      />
+    </Animated.View>
+  );
 
   return (
     <View
@@ -127,20 +154,13 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
       >
         <Thumb/>
       </Animated.View>
-      <Animated.View
-        style={[styles.highThumbContainer, highTransform]}
-      >
+      <Animated.View style={[styles.highThumbContainer, highTransform]}>
         <Thumb/>
       </Animated.View>
       <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
         <Rails/>
       </View>
-      <Animated.View style={[styles.labelContainer, labelTransform]}>
-        <Label
-          text={`Value: ${Math.round(isLow ? low : high)}`}
-          onLayout={handleLabelLayout}
-        />
-      </Animated.View>
+      {label}
       <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
     </View>
   );
