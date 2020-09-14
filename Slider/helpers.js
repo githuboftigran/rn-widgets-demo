@@ -4,22 +4,18 @@ export const isLowCloser = (downX, lowPosition, highPosition) => {
   return distanceFromLow <= distanceFromHigh;
 };
 
-export const getInOutRanges = (inStart, inEnd, allSteps, containerWidth, thumbWidth) => {
+export const clamp = (value, min, max) => {
+  return Math.min(Math.max(value, min), max);
+};
 
-  const stepWidth = (containerWidth - thumbWidth) / (allSteps - 1);
-  const steps = Math.round((inEnd - inStart) / stepWidth);
-  const inputRange = [inStart];
-  const outputRange = [];
-
-  for (let i = 0; i < steps; i += 1) {
-    inputRange.push(inStart + stepWidth / 2 + i * stepWidth);
-    inputRange.push(inStart + stepWidth / 2 + i * stepWidth);
-    outputRange.push(inStart + i * stepWidth);
-    outputRange.push(inStart + i * stepWidth);
+export const getValueForPosition = (positionInView, containerWidth, thumbWidth, min, max, step) => {
+  const availableSpace = containerWidth - thumbWidth;
+  const relStepUnit = step / (max - min);
+  let relPosition = (positionInView - thumbWidth / 2) / availableSpace;
+  const relOffset = relPosition % relStepUnit;
+  relPosition -= relOffset;
+  if (relOffset / relStepUnit >= 0.5) {
+    relPosition += relStepUnit;
   }
-  inputRange.push(inEnd);
-  outputRange.push(inEnd);
-  outputRange.push(inEnd);
-
-  return { inputRange, outputRange };
+  return clamp(Math.round(relPosition / relStepUnit) * step, min, max);
 };

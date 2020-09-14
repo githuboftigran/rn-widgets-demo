@@ -20,6 +20,7 @@ export default StyleSheet.create({
   },
   labelContainer: {
     position: 'absolute',
+    top: 0,
     backgroundColor: 'red',
   },
   touchableArea: {

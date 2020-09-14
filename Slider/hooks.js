@@ -1,6 +1,4 @@
-import { useCallback, useState } from 'react';
-import {getInOutRanges} from './helpers';
-import {Animated} from 'react-native';
+import { useCallback, useState, useRef } from 'react';
 export const useLowHigh = (lowProp, highProp, min, max) => {
   const [lowState, setLow] = useState(min);
   const [highState, setHigh] = useState(max);
@@ -12,36 +10,31 @@ export const useLowHigh = (lowProp, highProp, min, max) => {
   return { low, high, setLow, setHigh };
 };
 
-export const useLabelBounds = (translateX, xOffset, thumbWidth, containerWidth, allSteps) => {
-
-  const [labelBounds, setLabelBounds] = useState({ width: 0, height: 0 });
-
-  const handleLabelLayout = useCallback(({ nativeEvent }) => {
-    const { layout: { width, height }} = nativeEvent;
-    if (labelBounds.width !== width || labelBounds.height !== height) {
-      setLabelBounds({ width, height });
+export const useWidthLayout = (widthRef, callback) => {
+  return useCallback(({ nativeEvent }) => {
+    const { layout: {width}} = nativeEvent;
+    const { current: w } = widthRef;
+    if (w !== width) {
+      widthRef.current = width;
+      if (callback) {
+        callback(width);
+      }
     }
-  }, [labelBounds.width, labelBounds.height]);
-
-  let labelTransform;
-  if (thumbWidth && containerWidth && allSteps) {
-    const { inputRange, outputRange } = getInOutRanges(thumbWidth / 2, containerWidth - thumbWidth / 2, allSteps, containerWidth, thumbWidth);
-    labelTransform = {
-      top: -labelBounds.height,
-      left: -labelBounds.width / 2,
-      transform: [{ translateX: Animated.subtract(translateX, xOffset).interpolate({ inputRange, outputRange }) }],
-    };
-  }
-
-  return { handleLabelLayout, labelTransform };
+  }, [callback, widthRef]);
 };
 
-export const useWidthLayout = (widthSetter, xSetter) => {
-  return useCallback(({ nativeEvent }) => {
-    const { layout: {x, width}} = nativeEvent;
-    widthSetter(width);
-    if (xSetter) {
-      xSetter(x);
+export const useBoundsLayout = callback => {
+  const boundsRef = useRef({ width: 0, height: 0 });
+  const onLayout = useCallback(({ nativeEvent }) => {
+    const { layout: {width, height}} = nativeEvent;
+    const { current: bounds } = boundsRef;
+    const { width: w, height: h } = bounds;
+    if (w !== width || h !== height) {
+      Object.assign(bounds, { width, height });
+      if (callback) {
+        callback(width, height);
+      }
     }
-  }, [widthSetter, xSetter]);
+  }, [callback]);
+  return [boundsRef, onLayout];
 };
