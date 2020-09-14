@@ -4,7 +4,7 @@ import styles from './styles';
 import Rails from './Rails';
 import Thumb from './Thumb';
 import Label from './Label';
-import {useBoundsLayout, useLowHigh, useWidthLayout} from './hooks';
+import {useFollowThumb, useLowHigh, useWidthLayout} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
 const trueFunc = () => true;
@@ -14,19 +14,15 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
   const lowThumbXRef = useRef(new Animated.Value(0));
   const highThumbXRef = useRef(new Animated.Value(0));
-  const labelXRef = useRef(new Animated.Value(0));
-  const labelYRef = useRef(new Animated.Value(0));
-  const labelWidthRef = useRef(0);
-  const labelHeightRef = useRef(0);
   const { current: lowThumbX } = lowThumbXRef;
   const { current: highThumbX } = highThumbXRef;
-  const { current: labelX } = labelXRef;
-  const { current: labelY } = labelYRef;
+
   const gestureStateRef = useRef({ isLow: true, lastValue: 0, lastPosition: 0 });
   const [isPressed, setPressed] = useState(false);
 
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
+  const [updateLabel, labelTransform, handleLabelLayout] = useFollowThumb(containerWidthRef, gestureStateRef);
   const handleFixedLayoutsChange = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
     const { current: thumbWidth } = thumbWidthRef;
@@ -44,28 +40,8 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const handleContainerLayout = useWidthLayout(containerWidthRef, handleFixedLayoutsChange);
   const handleThumbLayout = useWidthLayout(thumbWidthRef, handleFixedLayoutsChange);
 
-  const updateLabel = thumbPositionInView => {
-    const { current: width } = labelWidthRef;
-    const { current: height } = labelHeightRef;
-    labelXRef.current.setValue(clamp(thumbPositionInView - width / 2, 0, containerWidthRef.current - width));
-    labelYRef.current.setValue(-height);
-  };
-
-  const handleLabelLayoutChange = (width, height) => {
-    labelWidthRef.current = width;
-    labelHeightRef.current = height;
-    updateLabel(gestureStateRef.current.lastPosition);
-  };
-  const [labelBoundsRef, handleLabelLayout] = useBoundsLayout(handleLabelLayoutChange);
-
   const lowTransform = { transform: [{translateX: lowThumbX}]};
   const highTransform = { transform: [{translateX: highThumbX}]};
-  const labelTransform = {
-    transform: [
-      {translateX: labelX},
-      {translateY: labelY},
-    ],
-  };
 
   const inPropsRef = useRef({ low, high, min, max, step });
   Object.assign(inPropsRef.current, { low, high, min, max, step });
@@ -132,7 +108,7 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         setPressed(false);
       },
     });
-  }, [pointerX, onValueChanged, setLow, setHigh]);
+  }, [pointerX, onValueChanged, setLow, setHigh, updateLabel]);
 
   const label = !isPressed ? null : (
     <Animated.View style={[styles.labelContainer, labelTransform]}>
