@@ -1,6 +1,8 @@
-import { useCallback, useState, useRef } from 'react';
-import {Animated} from 'react-native';
+import React, { useCallback, useState, useRef } from 'react';
+import {Animated, View} from 'react-native';
 import {clamp} from './helpers';
+import styles from './styles';
+
 export const useLowHigh = (lowProp, highProp, min, max) => {
   const [lowState, setLow] = useState(min);
   const [highState, setHigh] = useState(max);
@@ -39,30 +41,41 @@ export const useBoundsLayout = (boundsRef, callback) => {
   }, [boundsRef, callback]);
 };
 
-export const useFollowThumb = (containerWidthRef, gestureStateRef) => {
+export const useThumbFollower = (containerWidthRef, gestureStateRef, content, isPressed, allowOverflow) => {
   const xRef = useRef(new Animated.Value(0));
-  const yRef = useRef(new Animated.Value(0));
-  const boundsRef = useRef({ width: 0, height: 0 });
+  const widthRef = useRef(0);
 
   const { current: x } = xRef;
-  const { current: y } = yRef;
 
   const update = useCallback(thumbPositionInView => {
-    const { current: {width, height} } = boundsRef;
+    const { current: width } = widthRef;
     const { current: containerWidth } = containerWidthRef;
-    xRef.current.setValue(clamp(thumbPositionInView - width / 2, 0, containerWidth - width));
-    yRef.current.setValue(-height);
-  }, [boundsRef, containerWidthRef]);
+    const position = thumbPositionInView - width / 2;
+    xRef.current.setValue(allowOverflow ? position : clamp(position, 0, containerWidth - width));
+  }, [widthRef, containerWidthRef, allowOverflow]);
 
-  const handleLayout = useBoundsLayout(boundsRef, () => {
+  const handleLayout = useWidthLayout(widthRef, () => {
     update(gestureStateRef.current.lastPosition);
   });
 
-  const transform = {
-    transform: [
-      {translateX: x},
-      {translateY: y},
-    ],
-  };
-  return [update, transform, handleLayout];
+  const transform = { transform: [{ translateX: x }]};
+  const follower = (
+    <Animated.View style={[transform, { opacity: isPressed ? 1 : 0 }]}>
+      <View onLayout={handleLayout}>
+        {content}
+      </View>
+    </Animated.View>
+  );
+  return [follower, update];
+};
+
+export const useLabelContainerProps = floating => {
+  const [labelContainerHeight, setLabelContainerHeight] = useState(0);
+  const onLayout = useCallback(({ nativeEvent }) => {
+    const { layout: {height}} = nativeEvent;
+    setLabelContainerHeight(height);
+  }, []);
+
+  const style = [floating ? styles.labelFloatingContainer : styles.labelFixedContainer, { top: -labelContainerHeight }];
+  return { style, onLayout: floating ? onLayout : undefined };
 };

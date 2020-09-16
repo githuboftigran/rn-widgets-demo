@@ -125,6 +125,8 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <RangeSlider2
+                      labelFloating
+                      allowLabelOverflow
                       style={{marginLeft: 50, width: 300}}
                       min={0}
                       max={100}

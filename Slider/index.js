@@ -4,12 +4,13 @@ import styles from './styles';
 import Rails from './Rails';
 import Thumb from './Thumb';
 import Label from './Label';
-import {useFollowThumb, useLowHigh, useWidthLayout} from './hooks';
+import Notch from './Notch';
+import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
 const trueFunc = () => true;
 
-const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged }) => {
+const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged, labelFloating, allowLabelOverflow }) => {
 
   const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
   const lowThumbXRef = useRef(new Animated.Value(0));
@@ -22,7 +23,7 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
 
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
-  const [updateLabel, labelTransform, handleLabelLayout] = useFollowThumb(containerWidthRef, gestureStateRef);
+
   const handleFixedLayoutsChange = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
     const { current: thumbWidth } = thumbWidthRef;
@@ -44,11 +45,18 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const highTransform = { transform: [{translateX: highThumbX}]};
 
   const inPropsRef = useRef({ low, high, min, max, step });
+  // Always update values of refs so pan responder will have updated values
   Object.assign(inPropsRef.current, { low, high, min, max, step });
 
   const { isLow } = gestureStateRef.current;
-  // Always update values of refs so pan responder will have updated values
   const pointerX = useRef(new Animated.Value(0)).current;
+
+  // TODO use render functions from props
+  const labelContent = <Label text={`Value: ${Math.round(isLow ? low : high)}`}/>;
+  const notchContent = <Notch/>;
+  const [labelView, updateLabel] = useThumbFollower(containerWidthRef, gestureStateRef, labelContent, isPressed, allowLabelOverflow);
+  const [notchView, updateNotch] = useThumbFollower(containerWidthRef, gestureStateRef, notchContent, isPressed, allowLabelOverflow);
+  const labelContainerProps = useLabelContainerProps(labelFloating);
 
   const { panHandlers } = useMemo(() => {
     return PanResponder.create({
@@ -92,6 +100,7 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
             onValueChanged(isLow ? value : low, isLow ? high : value);
             (isLow ? setLow : setHigh)(value);
             updateLabel(gestureStateRef.current.lastPosition);
+            updateNotch(gestureStateRef.current.lastPosition);
           }
         };
         handlePositionChange(downX);
@@ -108,36 +117,29 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         setPressed(false);
       },
     });
-  }, [pointerX, onValueChanged, setLow, setHigh, updateLabel]);
-
-  const label = !isPressed ? null : (
-    <Animated.View style={[styles.labelContainer, labelTransform]}>
-      <Label
-        text={`Value: ${Math.round(isLow ? low : high)}`}
-        onLayout={handleLabelLayout}
-      />
-    </Animated.View>
-  );
+  }, [pointerX, onValueChanged, setLow, setHigh, updateLabel, updateNotch]);
 
   return (
-    <View
-      style={[style, styles.root]}
-      onLayout={handleContainerLayout}
-    >
-      <Animated.View
-        style={[styles.lowThumbContainer, lowTransform]}
-        onLayout={handleThumbLayout}
-      >
-        <Thumb/>
-      </Animated.View>
-      <Animated.View style={[styles.highThumbContainer, highTransform]}>
-        <Thumb/>
-      </Animated.View>
-      <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
-        <Rails/>
+    <View style={[style, styles.root]}>
+      <View {...labelContainerProps}>
+        {labelView}
+        {notchView}
       </View>
-      {label}
-      <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
+      <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
+        <Animated.View
+          style={[styles.lowThumbContainer, lowTransform]}
+          onLayout={handleThumbLayout}
+        >
+          <Thumb/>
+        </Animated.View>
+        <Animated.View style={[styles.highThumbContainer, highTransform]}>
+          <Thumb/>
+        </Animated.View>
+        <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
+          <Rails/>
+        </View>
+        <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
+      </View>
     </View>
   );
 };

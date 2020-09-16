@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   root: {
     width: 224,
+  },
+  controlsContainer: {
     backgroundColor: '#af55',
     flexDirection: 'row',
     alignItems: 'center',
@@ -18,10 +20,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  labelContainer: {
+  labelFixedContainer: {
+    alignItems: 'flex-start',
+  },
+  labelFloatingContainer: {
     position: 'absolute',
-    top: 0,
-    backgroundColor: 'red',
+    left: 0,
+    right: 0,
+    alignItems: 'flex-start',
   },
   touchableArea: {
     ...StyleSheet.absoluteFillObject,
