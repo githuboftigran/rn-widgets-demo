@@ -31,8 +31,8 @@ export default class App extends Component<Props> {
             rangeHigh: now,
             min: now,
             max: new Date(now.getTime() + 1000 * 60 * 60 * 24),
-            v2Low: 0,
-            v2High: 100,
+            v2Low: 100,
+            v2High: 200,
         };
     }
 
@@ -145,7 +145,7 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <RangeSlider2
                       style={{marginLeft: 50, width: 300}}
-                      min={0}
+                      min={100}
                       max={200}
                       step={1}
                       low={v2Low}

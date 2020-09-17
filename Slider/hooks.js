@@ -9,8 +9,8 @@ export const useLowHigh = (lowProp, highProp, min, max) => {
 
   // Props have higher priority.
   // If no props are passed, use internal state variables.
-  const low = lowProp === undefined ? lowState : lowProp;
-  const high = highProp === undefined ? highState : highProp;
+  const low = clamp(lowProp === undefined ? lowState : lowProp, min, max);
+  const high = clamp(highProp === undefined ? highState : highProp, min, max);
   return { low, high, setLow, setHigh };
 };
 

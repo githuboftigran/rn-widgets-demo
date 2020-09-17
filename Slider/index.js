@@ -47,7 +47,8 @@ const Slider = (
     const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
     lowThumbX.setValue(lowPosition);
     highThumbX.setValue(highPosition);
-  }, [containerWidthRef, high, low, max, min, thumbWidthRef]);
+    onValueChanged(low, high);
+  }, [high, low, max, min, onValueChanged]);
 
   const handleContainerLayout = useWidthLayout(containerWidthRef, handleFixedLayoutsChange);
   const handleThumbLayout = useWidthLayout(thumbWidthRef, handleFixedLayoutsChange);
@@ -68,6 +69,11 @@ const Slider = (
   const labelComponentsAndUpdates = labelViews.map((view, index) => useThumbFollower(containerWidthRef, gestureStateRef, view, isPressed, allowLabelOverflow, String(index)));
 
   const labelComponents = labelComponentsAndUpdates.map(([component]) => component);
+  const labelUpdates = labelComponentsAndUpdates.map(([component, update]) => update);
+  const updateLabelComponents = useCallback(position => {
+    labelUpdates.forEach(update => update(position));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, labelUpdates);
   const labelContainerProps = useLabelContainerProps(floatingLabel);
 
   const { panHandlers } = useMemo(() => {
@@ -101,7 +107,7 @@ const Slider = (
         const isLow = isLowCloser(downX, lowPosition, highPosition);
         gestureStateRef.current.isLow = isLow;
 
-        const handlePositionChange = (positionInView) => {
+        const handlePositionChange = positionInView => {
           const minValue = isLow ? min : low;
           const maxValue = isLow ? high : max;
           const value = clamp(getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step), minValue, maxValue);
@@ -113,7 +119,7 @@ const Slider = (
           if (onValueChanged) {
             onValueChanged(isLow ? value : low, isLow ? high : value);
             (isLow ? setLow : setHigh)(value);
-            labelComponentsAndUpdates.forEach(([component, update]) => update(gestureStateRef.current.lastPosition));
+            updateLabelComponents(gestureStateRef.current.lastPosition);
           }
         };
         handlePositionChange(downX);
@@ -130,7 +136,7 @@ const Slider = (
         setPressed(false);
       },
     });
-  }, [pointerX, onValueChanged, setLow, setHigh, labelComponentsAndUpdates]);
+  }, [pointerX, onValueChanged, setLow, setHigh, updateLabelComponents]);
 
   useEffect(() => {
     handleFixedLayoutsChange();
