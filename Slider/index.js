@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Animated, PanResponder, View } from 'react-native';
 import styles from './styles';
-import Rails from './Rails';
 import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
@@ -20,6 +19,7 @@ const Slider = (
     onValueChanged,
     renderThumb,
     renderLabel,
+    renderRail,
   }
 ) => {
 
@@ -65,7 +65,7 @@ const Slider = (
   const labelViews = renderLabel(isLow ? low : high);
   // We assume component will always get the same number of label views.
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const labelComponentsAndUpdates = labelViews.map(view => useThumbFollower(containerWidthRef, gestureStateRef, view, isPressed, allowLabelOverflow));
+  const labelComponentsAndUpdates = labelViews.map((view, index) => useThumbFollower(containerWidthRef, gestureStateRef, view, isPressed, allowLabelOverflow, String(index)));
 
   const labelComponents = labelComponentsAndUpdates.map(([component]) => component);
   const labelContainerProps = useLabelContainerProps(floatingLabel);
@@ -138,6 +138,7 @@ const Slider = (
 
   const lowThumb = renderThumb();
   const highThumb = renderThumb();
+  const rail = renderRail();
 
   return (
     <View style={[style, styles.root]}>
@@ -146,7 +147,7 @@ const Slider = (
       </View>
       <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
         <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
-          <Rails/>
+          {rail}
         </View>
         <Animated.View style={[styles.lowThumbContainer, lowTransform]} onLayout={handleThumbLayout}>
           {lowThumb}

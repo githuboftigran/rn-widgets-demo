@@ -41,7 +41,7 @@ export const useBoundsLayout = (boundsRef, callback) => {
   }, [boundsRef, callback]);
 };
 
-export const useThumbFollower = (containerWidthRef, gestureStateRef, content, isPressed, allowOverflow) => {
+export const useThumbFollower = (containerWidthRef, gestureStateRef, content, isPressed, allowOverflow, key) => {
   const xRef = useRef(new Animated.Value(0));
   const widthRef = useRef(0);
 
@@ -60,7 +60,7 @@ export const useThumbFollower = (containerWidthRef, gestureStateRef, content, is
 
   const transform = { transform: [{ translateX: x }]};
   const follower = (
-    <Animated.View style={[transform, { opacity: isPressed ? 1 : 0 }]}>
+    <Animated.View key={key} style={[transform, { opacity: isPressed ? 1 : 0 }]}>
       <View onLayout={handleLayout}>
         {content}
       </View>

@@ -16,6 +16,7 @@ import RangeSlider2 from './Slider';
 import Label from './Slider/Label';
 import Notch from './Slider/Notch';
 import Thumb from './Slider/Thumb';
+import Rail from './Slider/Rail';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -50,8 +51,12 @@ export default class App extends Component<Props> {
         ];
     }
 
+    renderV2Rail = () => {
+        return <Rail/>;
+    }
+
     renderV2Thumb = () => {
-        return <Thumb/>
+        return <Thumb/>;
     }
 
     render() {
@@ -148,6 +153,7 @@ export default class App extends Component<Props> {
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}
                       renderLabel={this.renderV2Label}
+                      renderRail={this.renderV2Rail}
                     />
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Text style={{

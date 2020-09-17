@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 const RAILS_HEIGHT = 4;
-const Rails = () => {
+const Rail = () => {
   return (
-    <View style={styles.root}>
-    </View>
+    <View style={styles.root}/>
   );
 };
 
@@ -20,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Rails;
+export default Rail;
