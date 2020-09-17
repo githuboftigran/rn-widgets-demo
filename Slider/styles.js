@@ -5,7 +5,6 @@ export default StyleSheet.create({
     width: 224,
   },
   controlsContainer: {
-    backgroundColor: '#af55',
     flexDirection: 'row',
     alignItems: 'center',
   },

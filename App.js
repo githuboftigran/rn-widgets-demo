@@ -13,6 +13,9 @@ import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator';
 import RangeSlider from 'rn-range-slider';
 import TextButton from './components/TextButton';
 import RangeSlider2 from './Slider';
+import Label from './Slider/Label';
+import Notch from './Slider/Notch';
+import Thumb from './Slider/Thumb';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -38,6 +41,17 @@ export default class App extends Component<Props> {
 
     handleV2ValueChange = (low, high) => {
         this.setState({ v2Low: low, v2High: high });
+    }
+
+    renderV2Label = value => {
+        return [
+            <Label text={`Value: ${Math.round(value)}`} key="label"/>,
+            <Notch key="notch"/>,
+        ];
+    }
+
+    renderV2Thumb = () => {
+        return <Thumb/>
     }
 
     render() {
@@ -125,15 +139,15 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <RangeSlider2
-                      labelFloating
-                      allowLabelOverflow
                       style={{marginLeft: 50, width: 300}}
                       min={0}
-                      max={100}
-                      step={10}
+                      max={200}
+                      step={1}
                       low={v2Low}
                       high={v2High}
                       onValueChanged={this.handleV2ValueChange}
+                      renderThumb={this.renderV2Thumb}
+                      renderLabel={this.renderV2Label}
                     />
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Text style={{

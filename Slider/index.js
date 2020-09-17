@@ -1,16 +1,27 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Animated, PanResponder, View } from 'react-native';
 import styles from './styles';
 import Rails from './Rails';
-import Thumb from './Thumb';
-import Label from './Label';
-import Notch from './Notch';
 import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
 const trueFunc = () => true;
 
-const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueChanged, labelFloating, allowLabelOverflow }) => {
+const Slider = (
+  {
+    style,
+    min,
+    max,
+    step,
+    low: lowProp,
+    high: highProp,
+    floatingLabel,
+    allowLabelOverflow,
+    onValueChanged,
+    renderThumb,
+    renderLabel,
+  }
+) => {
 
   const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
   const lowThumbXRef = useRef(new Animated.Value(0));
@@ -51,12 +62,13 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
   const { isLow } = gestureStateRef.current;
   const pointerX = useRef(new Animated.Value(0)).current;
 
-  // TODO use render functions from props
-  const labelContent = <Label text={`Value: ${Math.round(isLow ? low : high)}`}/>;
-  const notchContent = <Notch/>;
-  const [labelView, updateLabel] = useThumbFollower(containerWidthRef, gestureStateRef, labelContent, isPressed, allowLabelOverflow);
-  const [notchView, updateNotch] = useThumbFollower(containerWidthRef, gestureStateRef, notchContent, isPressed, allowLabelOverflow);
-  const labelContainerProps = useLabelContainerProps(labelFloating);
+  const labelViews = renderLabel(isLow ? low : high);
+  // We assume component will always get the same number of label views.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const labelComponentsAndUpdates = labelViews.map(view => useThumbFollower(containerWidthRef, gestureStateRef, view, isPressed, allowLabelOverflow));
+
+  const labelComponents = labelComponentsAndUpdates.map(([component]) => component);
+  const labelContainerProps = useLabelContainerProps(floatingLabel);
 
   const { panHandlers } = useMemo(() => {
     return PanResponder.create({
@@ -90,17 +102,18 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         gestureStateRef.current.isLow = isLow;
 
         const handlePositionChange = (positionInView) => {
-          const value = getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step);
+          const minValue = isLow ? min : low;
+          const maxValue = isLow ? high : max;
+          const value = clamp(getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step), minValue, maxValue);
           const availableSpace = containerWidth - thumbWidth;
-          const absolutePosition = clamp((value - min) / (max - min) * availableSpace, 0, availableSpace);
+          const absolutePosition = (value - min) / (max - min) * availableSpace;
           gestureStateRef.current.lastValue = value;
           gestureStateRef.current.lastPosition = absolutePosition + thumbWidth / 2;
           (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
           if (onValueChanged) {
             onValueChanged(isLow ? value : low, isLow ? high : value);
             (isLow ? setLow : setHigh)(value);
-            updateLabel(gestureStateRef.current.lastPosition);
-            updateNotch(gestureStateRef.current.lastPosition);
+            labelComponentsAndUpdates.forEach(([component, update]) => update(gestureStateRef.current.lastPosition));
           }
         };
         handlePositionChange(downX);
@@ -117,27 +130,30 @@ const Slider = ({ style, min, max, step, low: lowProp, high: highProp, onValueCh
         setPressed(false);
       },
     });
-  }, [pointerX, onValueChanged, setLow, setHigh, updateLabel, updateNotch]);
+  }, [pointerX, onValueChanged, setLow, setHigh, labelComponentsAndUpdates]);
+
+  useEffect(() => {
+    handleFixedLayoutsChange();
+  }, [handleFixedLayoutsChange]);
+
+  const lowThumb = renderThumb();
+  const highThumb = renderThumb();
 
   return (
     <View style={[style, styles.root]}>
       <View {...labelContainerProps}>
-        {labelView}
-        {notchView}
+        {labelComponents}
       </View>
       <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
-        <Animated.View
-          style={[styles.lowThumbContainer, lowTransform]}
-          onLayout={handleThumbLayout}
-        >
-          <Thumb/>
-        </Animated.View>
-        <Animated.View style={[styles.highThumbContainer, highTransform]}>
-          <Thumb/>
-        </Animated.View>
         <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
           <Rails/>
         </View>
+        <Animated.View style={[styles.lowThumbContainer, lowTransform]} onLayout={handleThumbLayout}>
+          {lowThumb}
+        </Animated.View>
+        <Animated.View style={[styles.highThumbContainer, highTransform]}>
+          {highThumb}
+        </Animated.View>
         <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
       </View>
     </View>

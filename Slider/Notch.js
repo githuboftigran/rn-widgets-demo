@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
   root: {
     width: 8,
     height: 8,
-    backgroundColor: 'white',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderTopColor: 'white',
+    borderLeftWidth: 4,
+    borderRightWidth: 4,
+    borderTopWidth: 8,
   },
 });

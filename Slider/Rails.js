@@ -4,17 +4,6 @@ const RAILS_HEIGHT = 4;
 const Rails = () => {
   return (
     <View style={styles.root}>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
-      <View style={{width: 1, height: 20, backgroundColor: '#f00'}}/>
     </View>
   );
 };
