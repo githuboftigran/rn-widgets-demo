@@ -4,13 +4,17 @@ import {clamp} from './helpers';
 import styles from './styles';
 
 export const useLowHigh = (lowProp, highProp, min, max) => {
-  const [lowState, setLow] = useState(min);
-  const [highState, setHigh] = useState(max);
+  const lowRef = useRef(min);
+  const highRef = useRef(max);
+  const { current: lowState } = lowRef;
+  const { current: highState } = highRef;
 
   // Props have higher priority.
   // If no props are passed, use internal state variables.
   const low = clamp(lowProp === undefined ? lowState : lowProp, min, max);
   const high = clamp(highProp === undefined ? highState : highProp, min, max);
+  const setLow = value => lowRef.current = value;
+  const setHigh = value => highRef.current = value;
   return { low, high, setLow, setHigh };
 };
 
