@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const THUMB_RADIUS = 12;
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Thumb;
+export default memo(Thumb);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet } from 'react-native';
 const RAILS_HEIGHT = 4;
 const Rail = () => {
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Rail;
+export default memo(Rail);

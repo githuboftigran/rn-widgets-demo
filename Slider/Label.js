@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const Label = ({ text, ...restProps }) => {
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Label;
+export default memo(Label);

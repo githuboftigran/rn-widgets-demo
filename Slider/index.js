@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Animated, PanResponder, View } from 'react-native';
+import React, { memo, useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { Animated, PanResponder, View, ViewPropTypes } from 'react-native';
+import PropTypes from 'prop-types';
+
 import styles from './styles';
 import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
 const trueFunc = () => true;
+const noop = () => {};
 
 const Slider = (
   {
@@ -23,7 +26,7 @@ const Slider = (
   }
 ) => {
 
-  const { low, high, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max);
+  const { inPropsRef, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max, step);
   const lowThumbXRef = useRef(new Animated.Value(0));
   const highThumbXRef = useRef(new Animated.Value(0));
   const { current: lowThumbX } = lowThumbXRef;
@@ -41,6 +44,7 @@ const Slider = (
     if (!thumbWidth || !containerWidth) {
       return;
     }
+    const { low, high } = inPropsRef.current;
     const { current: lowThumbX } = lowThumbXRef;
     const { current: highThumbX } = highThumbXRef;
     const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
@@ -48,21 +52,33 @@ const Slider = (
     lowThumbX.setValue(lowPosition);
     highThumbX.setValue(highPosition);
     onValueChanged(low, high);
-  }, [high, low, max, min, onValueChanged]);
+  }, [inPropsRef, max, min, onValueChanged]);
 
   const handleContainerLayout = useWidthLayout(containerWidthRef, handleFixedLayoutsChange);
   const handleThumbLayout = useWidthLayout(thumbWidthRef, handleFixedLayoutsChange);
 
-  const lowTransform = { transform: [{translateX: lowThumbX}]};
-  const highTransform = { transform: [{translateX: highThumbX}]};
+  const lowStyles = useMemo(() => {
+    return [
+      styles.lowThumbContainer,
+      {transform: [{translateX: lowThumbX}]},
+    ];
+  }, [lowThumbX]);
 
-  const inPropsRef = useRef({ low, high, min, max, step });
-  // Always update values of refs so pan responder will have updated values
-  Object.assign(inPropsRef.current, { low, high, min, max, step });
+  const highStyles = useMemo(() => {
+    return [
+      styles.highThumbContainer,
+      {transform: [{translateX: highThumbX}]},
+    ];
+  }, [highThumbX]);
+
+  const railStyles = useMemo(() => {
+    return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
+  }, [thumbWidthRef.current]);
 
   const { isLow } = gestureStateRef.current;
   const pointerX = useRef(new Animated.Value(0)).current;
 
+  const { low, high } = inPropsRef.current;
   const labelViews = renderLabel(isLow ? low : high);
   // We assume component will always get the same number of label views.
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -97,7 +113,7 @@ const Slider = (
         const { locationX: downX, pageX } = nativeEvent;
         const containerX = pageX - downX;
 
-        const { low, high, min, max, step } = inPropsRef.current;
+        const { low, high, min, max } = inPropsRef.current;
         const thumbWidth = thumbWidthRef.current;
         const containerWidth = containerWidthRef.current;
 
@@ -108,6 +124,7 @@ const Slider = (
         gestureStateRef.current.isLow = isLow;
 
         const handlePositionChange = positionInView => {
+          const { low, high, min, max, step } = inPropsRef.current;
           const minValue = isLow ? min : low;
           const maxValue = isLow ? high : max;
           const value = clamp(getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step), minValue, maxValue);
@@ -116,11 +133,9 @@ const Slider = (
           gestureStateRef.current.lastValue = value;
           gestureStateRef.current.lastPosition = absolutePosition + thumbWidth / 2;
           (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
-          if (onValueChanged) {
-            onValueChanged(isLow ? value : low, isLow ? high : value);
-            (isLow ? setLow : setHigh)(value);
-            updateLabelComponents(gestureStateRef.current.lastPosition);
-          }
+          onValueChanged(isLow ? value : low, isLow ? high : value);
+          (isLow ? setLow : setHigh)(value);
+          updateLabelComponents(gestureStateRef.current.lastPosition);
         };
         handlePositionChange(downX);
         pointerX.removeAllListeners();
@@ -136,7 +151,7 @@ const Slider = (
         setPressed(false);
       },
     });
-  }, [pointerX, onValueChanged, setLow, setHigh, updateLabelComponents]);
+  }, [pointerX, inPropsRef, onValueChanged, setLow, setHigh, updateLabelComponents]);
 
   useEffect(() => {
     handleFixedLayoutsChange();
@@ -146,19 +161,23 @@ const Slider = (
   const highThumb = renderThumb();
   const rail = renderRail();
 
+  const rootStyles = useMemo(() => {
+    return [style, styles.root];
+  }, [style]);
+
   return (
-    <View style={[style, styles.root]}>
+    <View style={rootStyles}>
       <View {...labelContainerProps}>
         {labelComponents}
       </View>
       <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
-        <View style={[styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }]}>
+        <View style={railStyles}>
           {rail}
         </View>
-        <Animated.View style={[styles.lowThumbContainer, lowTransform]} onLayout={handleThumbLayout}>
+        <Animated.View style={lowStyles} onLayout={handleThumbLayout}>
           {lowThumb}
         </Animated.View>
-        <Animated.View style={[styles.highThumbContainer, highTransform]}>
+        <Animated.View style={highStyles}>
           {highThumb}
         </Animated.View>
         <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
@@ -167,4 +186,26 @@ const Slider = (
   );
 };
 
-export default Slider;
+Slider.propTypes = {
+  ...ViewPropTypes,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
+  low: PropTypes.number,
+  high: PropTypes.number,
+  allowLabelOverflow: PropTypes.bool,
+  floatingLabel: PropTypes.bool,
+  renderThumb: PropTypes.func.isRequired,
+  renderRail: PropTypes.func.isRequired,
+  renderLabel: PropTypes.func,
+  onValueChanged: PropTypes.func,
+};
+
+Slider.defaultProps = {
+  allowLabelOverflow: false,
+  floatingLabel: false,
+  renderLabel: () => [],
+  onValueChanged: noop,
+};
+
+export default memo(Slider);

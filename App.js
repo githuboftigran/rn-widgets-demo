@@ -18,6 +18,8 @@ import Notch from './Slider/Notch';
 import Thumb from './Slider/Thumb';
 import Rail from './Slider/Rail';
 
+const v2Styles = {marginLeft: 50, width: 300};
+
 type Props = {};
 export default class App extends Component<Props> {
 
@@ -144,12 +146,10 @@ export default class App extends Component<Props> {
                     </View>
                     <View style={styles.divider}/>
                     <RangeSlider2
-                      style={{marginLeft: 50, width: 300}}
+                      style={v2Styles}
                       min={100}
                       max={200}
                       step={1}
-                      low={v2Low}
-                      high={v2High}
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}
                       renderLabel={this.renderV2Label}

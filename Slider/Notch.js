@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const Notch = props => {
@@ -7,7 +7,7 @@ const Notch = props => {
   );
 };
 
-export default Notch;
+export default memo(Notch);
 
 const styles = StyleSheet.create({
   root: {
