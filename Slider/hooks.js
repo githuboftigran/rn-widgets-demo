@@ -2,15 +2,19 @@ import React, { useCallback, useState, useRef } from 'react';
 import {Animated, View} from 'react-native';
 import {clamp} from './helpers';
 import styles from './styles';
+import LabelContainer from './LabelContainer';
 
 export const useLowHigh = (lowProp, highProp, min, max, step) => {
 
-  const inPropsRef = useRef({ low: min, high: max });
+  const validLowProp = lowProp === undefined ? min : clamp(lowProp, min, max);
+  const validHighProp = highProp === undefined ? max : clamp(highProp, min, max);
+  const inPropsRef = useRef({ low: validLowProp, high: validHighProp });
+  const { low: lowState, high: highState } = inPropsRef.current;
 
   // Props have higher priority.
   // If no props are passed, use internal state variables.
-  const low = clamp(lowProp === undefined ? inPropsRef.current.low : lowProp, min, max);
-  const high = clamp(highProp === undefined ? inPropsRef.current.high : highProp, min, max);
+  const low = clamp(lowProp === undefined ? lowState : lowProp, min, max);
+  const high = clamp(highProp === undefined ? highState : highProp, min, max);
 
   // Always update values of refs so pan responder will have updated values
   Object.assign(inPropsRef.current, { low, high, min, max, step });
@@ -47,29 +51,33 @@ export const useBoundsLayout = (boundsRef, callback) => {
   }, [boundsRef, callback]);
 };
 
-export const useThumbFollower = (containerWidthRef, gestureStateRef, content, isPressed, allowOverflow, key) => {
+export const useThumbFollower = (containerWidthRef, gestureStateRef, renderContent, isPressed, allowOverflow) => {
   const xRef = useRef(new Animated.Value(0));
   const widthRef = useRef(0);
+  const contentContainerRef = useRef(null);
 
   const { current: x } = xRef;
 
-  const update = useCallback(thumbPositionInView => {
+  const update = useCallback((thumbPositionInView, value) => {
     const { current: width } = widthRef;
     const { current: containerWidth } = containerWidthRef;
     const position = thumbPositionInView - width / 2;
     xRef.current.setValue(allowOverflow ? position : clamp(position, 0, containerWidth - width));
+    contentContainerRef.current.setValue(value);
   }, [widthRef, containerWidthRef, allowOverflow]);
 
   const handleLayout = useWidthLayout(widthRef, () => {
-    update(gestureStateRef.current.lastPosition);
+    update(gestureStateRef.current.lastPosition, gestureStateRef.current.lastValue);
   });
 
   const transform = { transform: [{ translateX: x }]};
   const follower = (
-    <Animated.View key={key} style={[transform, { opacity: isPressed ? 1 : 0 }]}>
-      <View onLayout={handleLayout}>
-        {content}
-      </View>
+    <Animated.View style={[transform, { opacity: isPressed ? 1 : 0 }]}>
+      <LabelContainer
+        onLayout={handleLayout}
+        ref={contentContainerRef}
+        renderContent={renderContent}
+      />
     </Animated.View>
   );
   return [follower, update];

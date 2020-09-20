@@ -47,10 +47,12 @@ export default class App extends Component<Props> {
     }
 
     renderV2Label = value => {
-        return [
-            <Label text={`Value: ${Math.round(value)}`} key="label"/>,
-            <Notch key="notch"/>,
-        ];
+        const text = Number.isNaN(value) ? 'Nothing' : `Value: ${Math.round(value)}`;
+        return <Label text={text}/>;
+    }
+
+    renderV2Notch = value => {
+        return <Notch/>;
     }
 
     renderV2Rail = () => {
@@ -153,6 +155,7 @@ export default class App extends Component<Props> {
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}
                       renderLabel={this.renderV2Label}
+                      renderNotch={this.renderV2Notch}
                       renderRail={this.renderV2Rail}
                     />
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

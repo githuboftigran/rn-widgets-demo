@@ -22,6 +22,7 @@ const Slider = (
     onValueChanged,
     renderThumb,
     renderLabel,
+    renderNotch,
     renderRail,
   }
 ) => {
@@ -75,21 +76,15 @@ const Slider = (
     return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
   }, [thumbWidthRef.current]);
 
-  const { isLow } = gestureStateRef.current;
   const pointerX = useRef(new Animated.Value(0)).current;
 
-  const { low, high } = inPropsRef.current;
-  const labelViews = renderLabel(isLow ? low : high);
-  // We assume component will always get the same number of label views.
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const labelComponentsAndUpdates = labelViews.map((view, index) => useThumbFollower(containerWidthRef, gestureStateRef, view, isPressed, allowLabelOverflow, String(index)));
+  const [labelView, labelUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderLabel, isPressed, allowLabelOverflow);
+  const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
 
-  const labelComponents = labelComponentsAndUpdates.map(([component]) => component);
-  const labelUpdates = labelComponentsAndUpdates.map(([component, update]) => update);
-  const updateLabelComponents = useCallback(position => {
-    labelUpdates.forEach(update => update(position));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, labelUpdates);
+  const updateLabelComponents = useCallback((position, value) => {
+    labelUpdate(position, value);
+    notchUpdate(position, value);
+  }, [labelUpdate, notchUpdate]);
   const labelContainerProps = useLabelContainerProps(floatingLabel);
 
   const { panHandlers } = useMemo(() => {
@@ -135,7 +130,7 @@ const Slider = (
           (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
           onValueChanged(isLow ? value : low, isLow ? high : value);
           (isLow ? setLow : setHigh)(value);
-          updateLabelComponents(gestureStateRef.current.lastPosition);
+          updateLabelComponents(gestureStateRef.current.lastPosition, value);
         };
         handlePositionChange(downX);
         pointerX.removeAllListeners();
@@ -168,7 +163,8 @@ const Slider = (
   return (
     <View style={rootStyles}>
       <View {...labelContainerProps}>
-        {labelComponents}
+        {labelView}
+        {notchView}
       </View>
       <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
         <View style={railStyles}>
