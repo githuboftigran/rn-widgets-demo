@@ -70,6 +70,10 @@ export const useThumbFollower = (containerWidthRef, gestureStateRef, renderConte
     update(gestureStateRef.current.lastPosition, gestureStateRef.current.lastValue);
   });
 
+  if (!renderContent) {
+    return [];
+  }
+
   const transform = { transform: [{ translateX: x }]};
   const follower = (
     <Animated.View style={[transform, { opacity: isPressed ? 1 : 0 }]}>

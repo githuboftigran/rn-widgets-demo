@@ -81,10 +81,6 @@ const Slider = (
   const [labelView, labelUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderLabel, isPressed, allowLabelOverflow);
   const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
 
-  const updateLabelComponents = useCallback((position, value) => {
-    labelUpdate(position, value);
-    notchUpdate(position, value);
-  }, [labelUpdate, notchUpdate]);
   const labelContainerProps = useLabelContainerProps(floatingLabel);
 
   const { panHandlers } = useMemo(() => {
@@ -130,7 +126,8 @@ const Slider = (
           (isLow ? lowThumbX : highThumbX).setValue(absolutePosition);
           onValueChanged(isLow ? value : low, isLow ? high : value);
           (isLow ? setLow : setHigh)(value);
-          updateLabelComponents(gestureStateRef.current.lastPosition, value);
+          labelUpdate && labelUpdate(gestureStateRef.current.lastPosition, value);
+          notchUpdate && notchUpdate(gestureStateRef.current.lastPosition, value);
         };
         handlePositionChange(downX);
         pointerX.removeAllListeners();
@@ -146,7 +143,7 @@ const Slider = (
         setPressed(false);
       },
     });
-  }, [pointerX, inPropsRef, onValueChanged, setLow, setHigh, updateLabelComponents]);
+  }, [pointerX, inPropsRef, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate]);
 
   useEffect(() => {
     handleFixedLayoutsChange();
@@ -194,13 +191,13 @@ Slider.propTypes = {
   renderThumb: PropTypes.func.isRequired,
   renderRail: PropTypes.func.isRequired,
   renderLabel: PropTypes.func,
+  renderNotch: PropTypes.func,
   onValueChanged: PropTypes.func,
 };
 
 Slider.defaultProps = {
   allowLabelOverflow: false,
   floatingLabel: false,
-  renderLabel: () => [],
   onValueChanged: noop,
 };
 
