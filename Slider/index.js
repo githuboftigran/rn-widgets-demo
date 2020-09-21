@@ -39,7 +39,7 @@ const Slider = (
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
 
-  const handleFixedLayoutsChange = useCallback(() => {
+  const updateThumbs = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
     const { current: thumbWidth } = thumbWidthRef;
     if (!thumbWidth || !containerWidth) {
@@ -55,8 +55,15 @@ const Slider = (
     onValueChanged(low, high);
   }, [inPropsRef, max, min, onValueChanged]);
 
-  const handleContainerLayout = useWidthLayout(containerWidthRef, handleFixedLayoutsChange);
-  const handleThumbLayout = useWidthLayout(thumbWidthRef, handleFixedLayoutsChange);
+  useEffect(() => {
+    const { low, high } = inPropsRef.current;
+    if ((lowProp !== undefined && lowProp !== low) || (highProp !== undefined && highProp !== high)) {
+      updateThumbs();
+    }
+  }, [highProp, inPropsRef, lowProp, updateThumbs]);
+
+  const handleContainerLayout = useWidthLayout(containerWidthRef, updateThumbs);
+  const handleThumbLayout = useWidthLayout(thumbWidthRef, updateThumbs);
 
   const lowStyles = useMemo(() => {
     return [
@@ -119,6 +126,9 @@ const Slider = (
           const minValue = isLow ? min : low;
           const maxValue = isLow ? high : max;
           const value = clamp(getValueForPosition(positionInView, containerWidth, thumbWidth, min, max, step), minValue, maxValue);
+          if (gestureStateRef.current.lastValue === value) {
+            return;
+          }
           const availableSpace = containerWidth - thumbWidth;
           const absolutePosition = (value - min) / (max - min) * availableSpace;
           gestureStateRef.current.lastValue = value;
@@ -144,10 +154,6 @@ const Slider = (
       },
     });
   }, [pointerX, inPropsRef, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate]);
-
-  useEffect(() => {
-    handleFixedLayoutsChange();
-  }, [handleFixedLayoutsChange]);
 
   const lowThumb = renderThumb();
   const highThumb = renderThumb();

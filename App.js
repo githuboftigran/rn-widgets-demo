@@ -38,6 +38,12 @@ export default class App extends Component<Props> {
         };
     }
 
+    handleBroadcastPress = () => this.setState({broadcasting: !this.state.broadcasting});
+    handleAstBeltValueChange = low => this.setState({astbeltProgress: low / 100});
+    handleSliderChange = (low, high, fromUser) => this.setState({rangeLow: low, rangeHigh: high})
+    handleSetMin500 = () => this.setState({min: 500})
+    handleSetMax700 = () => this.setState({max: 700})
+
     handleV2Set20 = () => {
         this.setState({v2Low: 20});
     }
@@ -72,7 +78,7 @@ export default class App extends Component<Props> {
                     <View style={styles.itemContainerHorizontal}>
                         <TextButton
                             text={'Broadcast'}
-                            onPress={() => this.setState({broadcasting: !broadcasting})}
+                            onPress={this.handleBroadcastPress}
                             containerStyle={styles.button}
                         />
                         <BroadcastView style={{width: 100, height: 100}} broadcasting={broadcasting}/>
@@ -80,12 +86,9 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <View style={styles.itemContainerHorizontal}>
                         <RangeSlider
-                            ref={component => this._astSlider = component}
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
-                            onValueChanged={(low, high, fromUser) => {
-                                this.setState({astbeltProgress: low / 100})
-                            }}
+                            onValueChanged={this.handleAstBeltValueChange}
                         />
                         <AstbeltActivityIndicator style={{width: 100, height: 100}}
                                                   progress={astbeltProgress}/>
@@ -97,7 +100,6 @@ export default class App extends Component<Props> {
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                             <RangeSlider
                                 valueType="time"
-                                ref={component => this._slider = component}
                                 gravity={'center'}
                                 labelStyle={'none'}
                                 style={{width: '80%', height: 70}}
@@ -107,42 +109,26 @@ export default class App extends Component<Props> {
                                 blankColor="#f618"
                                 step={1000 * 60 * 60}
                                 textFormat="HH:mm"
-                                onValueChanged={(low, high, fromUser) => {
-                                    this.setState({rangeLow: low, rangeHigh: high})
-                                }}
+                                onValueChanged={this.handleSliderChange}
                             />
 
                             <Text style={{
                                 fontSize: 20,
-                                color: '#fff'
+                                color: '#fff',
                             }}>{`[${rangeLow.getHours()}, ${rangeHigh.getHours()}]`}</Text>
-                        </View>
-
-                        <View style={{flexDirection: 'row', marginTop: 16}}>
-                            <TextButton
-                                text="Set low to 300"
-                                containerStyle={styles.setHighLowButton}
-                                onPress={() => {this._astSlider.setLowValue(100)}}
-                            />
-
-                            <TextButton
-                                text="Set high to 700"
-                                containerStyle={styles.setHighLowButton}
-                                onPress={() => {this._slider.setHighValue(700)}}
-                            />
                         </View>
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>
                             <TextButton
                                 text="Set min to 500"
                                 containerStyle={styles.setHighLowButton}
-                                onPress={() => this.setState({min: 500})}
+                                onPress={this.handleSetMin500}
                             />
 
                             <TextButton
                                 text="Set max to 600"
                                 containerStyle={styles.setHighLowButton}
-                                onPress={() => this.setState({max: 600})}
+                                onPress={this.handleSetMax700}
                             />
                         </View>
                     </View>
@@ -152,6 +138,8 @@ export default class App extends Component<Props> {
                       min={100}
                       max={200}
                       step={1}
+                      low={v2Low}
+                      high={v2High}
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}
                       renderLabel={this.renderV2Label}
