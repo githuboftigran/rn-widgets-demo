@@ -12,6 +12,13 @@ import BroadcastView from 'rn-broadcast-view';
 import AstbeltActivityIndicator from 'rn-astbelt-activity-indicator';
 import RangeSlider from 'rn-range-slider';
 import TextButton from './components/TextButton';
+import RangeSlider2 from './Slider';
+import Label from './Slider/Label';
+import Notch from './Slider/Notch';
+import Thumb from './Slider/Thumb';
+import Rail from './Slider/Rail';
+
+const v2Styles = {marginLeft: 50, width: 300};
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -26,11 +33,44 @@ export default class App extends Component<Props> {
             rangeHigh: now,
             min: now,
             max: new Date(now.getTime() + 1000 * 60 * 60 * 24),
+            v2Low: 100,
+            v2High: 200,
         };
     }
 
+    handleBroadcastPress = () => this.setState({broadcasting: !this.state.broadcasting});
+    handleAstBeltValueChange = low => this.setState({astbeltProgress: low / 100});
+    handleSliderChange = (low, high, fromUser) => this.setState({rangeLow: low, rangeHigh: high})
+    handleSetMin500 = () => this.setState({min: 500})
+    handleSetMax700 = () => this.setState({max: 700})
+
+    handleV2Set20 = () => {
+        this.setState({v2Low: 20});
+    }
+
+    handleV2ValueChange = (low, high) => {
+        this.setState({ v2Low: low, v2High: high });
+    }
+
+    renderV2Label = value => {
+        const text = Number.isNaN(value) ? 'Nothing' : `Value: ${Math.round(value)}`;
+        return <Label text={text}/>;
+    }
+
+    renderV2Notch = value => {
+        return <Notch/>;
+    }
+
+    renderV2Rail = () => {
+        return <Rail/>;
+    }
+
+    renderV2Thumb = () => {
+        return <Thumb/>;
+    }
+
     render() {
-        const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max } = this.state
+        const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max, v2Low, v2High } = this.state;
         return (
             <SafeAreaView style={{flex: 1}}>
                 <View style={styles.container}>
@@ -38,7 +78,7 @@ export default class App extends Component<Props> {
                     <View style={styles.itemContainerHorizontal}>
                         <TextButton
                             text={'Broadcast'}
-                            onPress={() => this.setState({broadcasting: !broadcasting})}
+                            onPress={this.handleBroadcastPress}
                             containerStyle={styles.button}
                         />
                         <BroadcastView style={{width: 100, height: 100}} broadcasting={broadcasting}/>
@@ -46,73 +86,77 @@ export default class App extends Component<Props> {
                     <View style={styles.divider}/>
                     <View style={styles.itemContainerHorizontal}>
                         <RangeSlider
-                          ref={component => this._astSlider = component}
                             rangeEnabled={false}
                             style={{width: 160, height: 70}}
-                            onValueChanged={(low, high, fromUser) => {
-                                this.setState({astbeltProgress: low / 100})
-                            }}
+                            onValueChanged={this.handleAstBeltValueChange}
                         />
                         <AstbeltActivityIndicator style={{width: 100, height: 100}}
                                                   progress={astbeltProgress}/>
 
                     </View>
                     <View style={styles.divider}/>
-                    <View style={styles.rangeSliderItemContainer}>
+                    <View style={[styles.rangeSliderItemContainer, {marginTop: 16}]}>
 
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                             <RangeSlider
-                              valueType="time"
-                              ref={component => this._slider = component}
-                              gravity={'center'}
-                              labelStyle={'bubble'}
-                              style={{width: '80%', height: 70}}
-                              min={min}
-                              max={max}
-                              selectionColor="#3df"
-                              blankColor="#f618"
-                              step={1000 * 60 * 60}
-                              textFormat="HH:mm"
-                              onValueChanged={(low, high, fromUser) => {
-                                  this.setState({rangeLow: low, rangeHigh: high})
-                              }}
+                                valueType="time"
+                                gravity={'center'}
+                                labelStyle={'none'}
+                                style={{width: '80%', height: 70}}
+                                min={min}
+                                max={max}
+                                selectionColor="#3df"
+                                blankColor="#f618"
+                                step={1000 * 60 * 60}
+                                textFormat="HH:mm"
+                                onValueChanged={this.handleSliderChange}
                             />
 
                             <Text style={{
                                 fontSize: 20,
-                                color: '#fff'
+                                color: '#fff',
                             }}>{`[${rangeLow.getHours()}, ${rangeHigh.getHours()}]`}</Text>
                         </View>
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>
                             <TextButton
-                              text="Set low to 300"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => {this._astSlider.setLowValue(100)}}
+                                text="Set min to 500"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={this.handleSetMin500}
                             />
 
                             <TextButton
-                              text="Set high to 700"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => {this._slider.setHighValue(700)}}
-                            />
-                        </View>
-
-                        <View style={{flexDirection: 'row', marginTop: 16}}>
-                            <TextButton
-                              text="Set min to 500"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => this.setState({min: 500})}
-                            />
-
-                            <TextButton
-                              text="Set max to 600"
-                              containerStyle={styles.setHighLowButton}
-                              onPress={() => this.setState({max: 600})}
+                                text="Set max to 600"
+                                containerStyle={styles.setHighLowButton}
+                                onPress={this.handleSetMax700}
                             />
                         </View>
                     </View>
                     <View style={styles.divider}/>
+                    <RangeSlider2
+                      style={v2Styles}
+                      min={100}
+                      max={200}
+                      step={1}
+                      low={v2Low}
+                      high={v2High}
+                      onValueChanged={this.handleV2ValueChange}
+                      renderThumb={this.renderV2Thumb}
+                      renderLabel={this.renderV2Label}
+                      renderNotch={this.renderV2Notch}
+                      renderRail={this.renderV2Rail}
+                    />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={{
+                            fontSize: 20,
+                            color: '#fff',
+                        }}>{Math.round(v2Low)}</Text>
+                        <TextButton text={'SetLow to 20'} onPress={this.handleV2Set20}/>
+                        <Text style={{
+                            fontSize: 20,
+                            color: '#fff',
+                        }}>{Math.round(v2High)}</Text>
+                    </View>
                 </View>
             </SafeAreaView>
         );
@@ -139,7 +183,6 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     rangeSliderItemContainer: {
-        height: 220,
         justifyContent: 'space-between',
         padding: 12,
     },
@@ -156,6 +199,6 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: '#9aa'
+        backgroundColor: '#9aa',
     },
 });
