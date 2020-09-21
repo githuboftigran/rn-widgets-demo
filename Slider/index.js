@@ -30,6 +30,7 @@ const Slider = (
   const { inPropsRef, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max, step);
   const lowThumbXRef = useRef(new Animated.Value(0));
   const highThumbXRef = useRef(new Animated.Value(0));
+  const pointerX = useRef(new Animated.Value(0)).current;
   const { current: lowThumbX } = lowThumbXRef;
   const { current: highThumbX } = highThumbXRef;
 
@@ -83,15 +84,16 @@ const Slider = (
     return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
   }, [thumbWidthRef.current]);
 
-  const pointerX = useRef(new Animated.Value(0)).current;
-
   const [labelView, labelUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderLabel, isPressed, allowLabelOverflow);
   const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
+  const lowThumb = renderThumb();
+  const highThumb = renderThumb();
+  const rail = renderRail();
+  const rootStyles = useMemo(() => [style, styles.root], [style]);
 
   const labelContainerProps = useLabelContainerProps(floatingLabel);
 
-  const { panHandlers } = useMemo(() => {
-    return PanResponder.create({
+  const { panHandlers } = useMemo(() => PanResponder.create({
       onStartShouldSetPanResponder: trueFunc,
       onStartShouldSetPanResponderCapture: trueFunc,
       onMoveShouldSetPanResponder: trueFunc,
@@ -152,16 +154,7 @@ const Slider = (
       onPanResponderRelease: () => {
         setPressed(false);
       },
-    });
-  }, [pointerX, inPropsRef, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate]);
-
-  const lowThumb = renderThumb();
-  const highThumb = renderThumb();
-  const rail = renderRail();
-
-  const rootStyles = useMemo(() => {
-    return [style, styles.root];
-  }, [style]);
+    }), [pointerX, inPropsRef, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate]);
 
   return (
     <View style={rootStyles}>

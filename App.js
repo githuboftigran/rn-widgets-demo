@@ -57,17 +57,9 @@ export default class App extends Component<Props> {
         return <Label text={text}/>;
     }
 
-    renderV2Notch = value => {
-        return <Notch/>;
-    }
-
-    renderV2Rail = () => {
-        return <Rail/>;
-    }
-
-    renderV2Thumb = () => {
-        return <Thumb/>;
-    }
+    renderV2Thumb = () => <Thumb/>
+    renderV2Notch = value => <Notch/>
+    renderV2Rail = () => <Rail/>
 
     render() {
         const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max, v2Low, v2High } = this.state;
@@ -90,9 +82,10 @@ export default class App extends Component<Props> {
                             style={{width: 160, height: 70}}
                             onValueChanged={this.handleAstBeltValueChange}
                         />
-                        <AstbeltActivityIndicator style={{width: 100, height: 100}}
-                                                  progress={astbeltProgress}/>
-
+                        <AstbeltActivityIndicator
+                          style={{width: 100, height: 100}}
+                          progress={astbeltProgress}
+                        />
                     </View>
                     <View style={styles.divider}/>
                     <View style={[styles.rangeSliderItemContainer, {marginTop: 16}]}>
@@ -115,7 +108,9 @@ export default class App extends Component<Props> {
                             <Text style={{
                                 fontSize: 20,
                                 color: '#fff',
-                            }}>{`[${rangeLow.getHours()}, ${rangeHigh.getHours()}]`}</Text>
+                            }}>
+                                {`[${rangeLow.getHours()}, ${rangeHigh.getHours()}]`}
+                            </Text>
                         </View>
 
                         <View style={{flexDirection: 'row', marginTop: 16}}>
