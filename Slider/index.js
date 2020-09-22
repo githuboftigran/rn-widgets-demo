@@ -3,7 +3,7 @@ import { Animated, PanResponder, View, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 
 import styles from './styles';
-import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps} from './hooks';
+import {useThumbFollower, useLowHigh, useWidthLayout, useLabelContainerProps, useSelectedRail} from './hooks';
 import {clamp, getValueForPosition, isLowCloser} from './helpers';
 
 const trueFunc = () => true;
@@ -24,6 +24,7 @@ const Slider = (
     renderLabel,
     renderNotch,
     renderRail,
+    renderRailSelected,
   }
 ) => {
 
@@ -40,6 +41,8 @@ const Slider = (
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
 
+  const [selectedRailStyle, selectedRailUpdate] = useSelectedRail(inPropsRef, containerWidthRef, thumbWidthRef);
+
   const updateThumbs = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
     const { current: thumbWidth } = thumbWidthRef;
@@ -53,6 +56,7 @@ const Slider = (
     const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
     lowThumbX.setValue(lowPosition);
     highThumbX.setValue(highPosition);
+    selectedRailUpdate();
     onValueChanged(low, high);
   }, [inPropsRef, max, min, onValueChanged]);
 
@@ -80,7 +84,7 @@ const Slider = (
     ];
   }, [highThumbX]);
 
-  const railStyles = useMemo(() => {
+  const railContainerStyles = useMemo(() => {
     return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
   }, [thumbWidthRef.current]);
 
@@ -88,7 +92,6 @@ const Slider = (
   const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
   const lowThumb = renderThumb();
   const highThumb = renderThumb();
-  const rail = renderRail();
   const rootStyles = useMemo(() => [style, styles.root], [style]);
 
   const labelContainerProps = useLabelContainerProps(floatingLabel);
@@ -140,6 +143,7 @@ const Slider = (
           (isLow ? setLow : setHigh)(value);
           labelUpdate && labelUpdate(gestureStateRef.current.lastPosition, value);
           notchUpdate && notchUpdate(gestureStateRef.current.lastPosition, value);
+          selectedRailUpdate(isLow ? value : low, isLow ? high : value);
         };
         handlePositionChange(downX);
         pointerX.removeAllListeners();
@@ -163,8 +167,11 @@ const Slider = (
         {notchView}
       </View>
       <View onLayout={handleContainerLayout} style={styles.controlsContainer}>
-        <View style={railStyles}>
-          {rail}
+        <View style={railContainerStyles}>
+          {renderRail()}
+          <Animated.View style={selectedRailStyle}>
+            {renderRailSelected()}
+          </Animated.View>
         </View>
         <Animated.View style={lowStyles} onLayout={handleThumbLayout}>
           {lowThumb}
@@ -188,9 +195,10 @@ Slider.propTypes = {
   allowLabelOverflow: PropTypes.bool,
   floatingLabel: PropTypes.bool,
   renderThumb: PropTypes.func.isRequired,
-  renderRail: PropTypes.func.isRequired,
   renderLabel: PropTypes.func,
   renderNotch: PropTypes.func,
+  renderRail: PropTypes.func,
+  renderRailSelected: PropTypes.func,
   onValueChanged: PropTypes.func,
 };
 

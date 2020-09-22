@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useRef } from 'react';
-import {Animated, View} from 'react-native';
+import React, { useCallback, useState, useRef, useMemo } from 'react';
+import {Animated} from 'react-native';
 import {clamp} from './helpers';
 import styles from './styles';
 import FollowerContainer from './LabelContainer';
@@ -102,6 +102,24 @@ export const useThumbFollower = (containerWidthRef, gestureStateRef, renderConte
     </Animated.View>
   );
   return [follower, update];
+};
+
+export const useSelectedRail = (inPropsRef, containerWidthRef, thumbWidthRef) => {
+  const { current: left } = useRef(new Animated.Value(0));
+  const { current: right } = useRef(new Animated.Value(0));
+  const update = () => {
+    const { low, high, min, max } = inPropsRef.current;
+    const { current: containerWidth } = containerWidthRef;
+    const { current: thumbWidth } = thumbWidthRef;
+    left.setValue((low - min) / (max - min) * (containerWidth - thumbWidth));
+    right.setValue((max - high) / (max - min) * (containerWidth - thumbWidth));
+  };
+  const styles = useMemo(() => ({
+    position: 'absolute',
+    left,
+    right,
+  }), [left, right]);
+  return [styles, update];
 };
 
 /**

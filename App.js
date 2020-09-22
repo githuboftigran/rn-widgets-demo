@@ -17,6 +17,7 @@ import Label from './Slider/Label';
 import Notch from './Slider/Notch';
 import Thumb from './Slider/Thumb';
 import Rail from './Slider/Rail';
+import RailSelected from './Slider/RailSelected';
 
 const v2Styles = {marginLeft: 50, width: 300};
 
@@ -59,7 +60,8 @@ export default class App extends Component<Props> {
 
     renderV2Thumb = () => <Thumb/>
     renderV2Notch = value => <Notch/>
-    renderV2Rail = () => <Rail/>
+    renderRail = () => <Rail/>
+    renderRailSelected = () => <RailSelected/>
 
     render() {
         const { broadcasting, astbeltProgress, rangeLow, rangeHigh, min, max, v2Low, v2High } = this.state;
@@ -133,20 +135,20 @@ export default class App extends Component<Props> {
                       min={100}
                       max={200}
                       step={1}
-                      low={v2Low}
-                      high={v2High}
+                      railStyle={styles.v2RailStyle}
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}
                       renderLabel={this.renderV2Label}
                       renderNotch={this.renderV2Notch}
-                      renderRail={this.renderV2Rail}
+                      renderRail={this.renderRail}
+                      renderRailSelected={this.renderRailSelected}
                     />
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Text style={{
                             fontSize: 20,
                             color: '#fff',
                         }}>{Math.round(v2Low)}</Text>
-                        <TextButton text={'SetLow to 20'} onPress={this.handleV2Set20}/>
+                        <TextButton text={'SetLow to 20'} onPress={this.handleV2Set20} containerStyle={{marginTop: 40}}/>
                         <Text style={{
                             fontSize: 20,
                             color: '#fff',
@@ -195,5 +197,15 @@ const styles = StyleSheet.create({
     divider: {
         height: 1,
         backgroundColor: '#9aa',
+    },
+    v2RailStyle: {
+        flex: 1,
+        height: 4,
+        borderRadius: 2,
+        backgroundColor: '#7f7f7f',
+    },
+    v2RailSelectedStyle: {
+        height: 4,
+        backgroundColor: '#4499ff',
     },
 });

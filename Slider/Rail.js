@@ -1,22 +1,19 @@
 import React, { memo } from 'react';
 import { View, StyleSheet } from 'react-native';
-const RAILS_HEIGHT = 4;
+
 const Rail = () => {
   return (
     <View style={styles.root}/>
   );
 };
 
+export default memo(Rail);
+
 const styles = StyleSheet.create({
   root: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     flex: 1,
-    height: RAILS_HEIGHT,
-    borderRadius: RAILS_HEIGHT / 2,
+    height: 4,
+    borderRadius: 2,
     backgroundColor: '#7f7f7f',
   },
 });
-
-export default memo(Rail);
