@@ -104,15 +104,18 @@ export const useThumbFollower = (containerWidthRef, gestureStateRef, renderConte
   return [follower, update];
 };
 
-export const useSelectedRail = (inPropsRef, containerWidthRef, thumbWidthRef) => {
+export const useSelectedRail = (inPropsRef, containerWidthRef, thumbWidthRef, disableRange) => {
   const { current: left } = useRef(new Animated.Value(0));
   const { current: right } = useRef(new Animated.Value(0));
   const update = () => {
     const { low, high, min, max } = inPropsRef.current;
     const { current: containerWidth } = containerWidthRef;
     const { current: thumbWidth } = thumbWidthRef;
-    left.setValue((low - min) / (max - min) * (containerWidth - thumbWidth));
-    right.setValue((max - high) / (max - min) * (containerWidth - thumbWidth));
+    const fullScale = (max - min) / (containerWidth - thumbWidth);
+    const leftValue = (low - min) / fullScale;
+    const rightValue = (max - high) / fullScale;
+    left.setValue(disableRange ? 0 : leftValue);
+    right.setValue(disableRange ? (containerWidth - thumbWidth) - leftValue : rightValue);
   };
   const styles = useMemo(() => ({
     position: 'absolute',

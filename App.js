@@ -135,6 +135,7 @@ export default class App extends Component<Props> {
                       min={100}
                       max={200}
                       step={1}
+                      disableRange
                       railStyle={styles.v2RailStyle}
                       onValueChanged={this.handleV2ValueChange}
                       renderThumb={this.renderV2Thumb}

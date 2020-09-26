@@ -19,6 +19,7 @@ const Slider = (
     high: highProp,
     floatingLabel,
     allowLabelOverflow,
+    disableRange,
     onValueChanged,
     renderThumb,
     renderLabel,
@@ -28,7 +29,7 @@ const Slider = (
   }
 ) => {
 
-  const { inPropsRef, setLow, setHigh } = useLowHigh(lowProp, highProp, min, max, step);
+  const { inPropsRef, setLow, setHigh } = useLowHigh(lowProp, disableRange ? max : highProp, min, max, step);
   const lowThumbXRef = useRef(new Animated.Value(0));
   const highThumbXRef = useRef(new Animated.Value(0));
   const pointerX = useRef(new Animated.Value(0)).current;
@@ -41,7 +42,7 @@ const Slider = (
   const containerWidthRef = useRef(0);
   const thumbWidthRef = useRef(0);
 
-  const [selectedRailStyle, selectedRailUpdate] = useSelectedRail(inPropsRef, containerWidthRef, thumbWidthRef);
+  const [selectedRailStyle, selectedRailUpdate] = useSelectedRail(inPropsRef, containerWidthRef, thumbWidthRef, disableRange);
 
   const updateThumbs = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
@@ -50,15 +51,17 @@ const Slider = (
       return;
     }
     const { low, high } = inPropsRef.current;
+    if (!disableRange) {
+      const { current: highThumbX } = highThumbXRef;
+      const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
+      highThumbX.setValue(highPosition);
+    }
     const { current: lowThumbX } = lowThumbXRef;
-    const { current: highThumbX } = highThumbXRef;
     const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
-    const highPosition = (high - min) / (max - min) * (containerWidth - thumbWidth);
     lowThumbX.setValue(lowPosition);
-    highThumbX.setValue(highPosition);
     selectedRailUpdate();
     onValueChanged(low, high);
-  }, [inPropsRef, max, min, onValueChanged]);
+  }, [disableRange, inPropsRef, max, min, onValueChanged, selectedRailUpdate]);
 
   useEffect(() => {
     const { low, high } = inPropsRef.current;
@@ -78,11 +81,11 @@ const Slider = (
   }, [lowThumbX]);
 
   const highStyles = useMemo(() => {
-    return [
+    return disableRange ? null : [
       styles.highThumbContainer,
       {transform: [{translateX: highThumbX}]},
     ];
-  }, [highThumbX]);
+  }, [disableRange, highThumbX]);
 
   const railContainerStyles = useMemo(() => {
     return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
@@ -123,7 +126,7 @@ const Slider = (
         const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
         const highPosition = thumbWidth / 2 + (high - min) / (max - min) * (containerWidth - thumbWidth);
 
-        const isLow = isLowCloser(downX, lowPosition, highPosition);
+        const isLow = disableRange || isLowCloser(downX, lowPosition, highPosition);
         gestureStateRef.current.isLow = isLow;
 
         const handlePositionChange = positionInView => {
@@ -158,7 +161,7 @@ const Slider = (
       onPanResponderRelease: () => {
         setPressed(false);
       },
-    }), [pointerX, inPropsRef, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate]);
+    }), [pointerX, inPropsRef, disableRange, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate, selectedRailUpdate]);
 
   return (
     <View style={rootStyles}>
@@ -176,9 +179,11 @@ const Slider = (
         <Animated.View style={lowStyles} onLayout={handleThumbLayout}>
           {lowThumb}
         </Animated.View>
-        <Animated.View style={highStyles}>
-          {highThumb}
-        </Animated.View>
+        {
+          !disableRange && <Animated.View style={highStyles}>
+            {highThumb}
+          </Animated.View>
+        }
         <View { ...panHandlers } style={styles.touchableArea} collapsable={false}/>
       </View>
     </View>
@@ -193,6 +198,7 @@ Slider.propTypes = {
   low: PropTypes.number,
   high: PropTypes.number,
   allowLabelOverflow: PropTypes.bool,
+  disableRange: PropTypes.bool,
   floatingLabel: PropTypes.bool,
   renderThumb: PropTypes.func.isRequired,
   renderLabel: PropTypes.func,
@@ -204,6 +210,7 @@ Slider.propTypes = {
 
 Slider.defaultProps = {
   allowLabelOverflow: false,
+  disableRange: false,
   floatingLabel: false,
   onValueChanged: noop,
 };
