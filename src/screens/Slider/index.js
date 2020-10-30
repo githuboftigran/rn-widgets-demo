@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text } from 'react-native';
+import Slider from 'rn-range-slider';
 
-import Slider from '../../Slider';
 import Thumb from '../../Slider/Thumb';
 import Rail from '../../Slider/Rail';
 import RailSelected from '../../Slider/RailSelected';
@@ -56,12 +56,19 @@ const SliderScreen = () => {
     />
     <View style={styles.horizontalContainer}>
       <Text style={styles.valueText}>{low}</Text>
+      <Text style={styles.valueText}>{high}</Text>
+    </View>
+    <View style={styles.horizontalContainer}>
+      <TextButton
+        text="Toggle floating"
+        containerStyle={styles.button}
+        onPress={toggleFloatingLabel}
+      />
       <TextButton
         text={rangeDisabled ? 'Enable range' : 'Disable range'}
         containerStyle={styles.button}
         onPress={toggleRangeEnabled}
       />
-      <Text style={styles.valueText}>{high}</Text>
     </View>
     <View style={styles.horizontalContainer}>
       <TextButton
@@ -85,13 +92,6 @@ const SliderScreen = () => {
         text="Set max to 500"
         containerStyle={styles.button}
         onPress={setMaxTo500}
-      />
-    </View>
-    <View style={styles.horizontalContainer}>
-      <TextButton
-        text="Toggle floating"
-        containerStyle={styles.button}
-        onPress={toggleFloatingLabel}
       />
     </View>
   </View>;
