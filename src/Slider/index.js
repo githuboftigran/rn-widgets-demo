@@ -66,7 +66,11 @@ const Slider = (
     if ((lowProp !== undefined && lowProp !== low) || (highProp !== undefined && highProp !== high)) {
       updateThumbs();
     }
-  }, [highProp, inPropsRef, lowProp, updateThumbs]);
+  }, [highProp, inPropsRef, lowProp]);
+
+  useEffect(() => {
+    updateThumbs();
+  }, [updateThumbs]);
 
   const handleContainerLayout = useWidthLayout(containerWidthRef, updateThumbs);
   const handleThumbLayout = useCallback(({ nativeEvent }) => {

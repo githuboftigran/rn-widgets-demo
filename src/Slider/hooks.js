@@ -135,6 +135,7 @@ export const useLabelContainerProps = floating => {
     setLabelContainerHeight(height);
   }, []);
 
-  const style = [floating ? styles.labelFloatingContainer : styles.labelFixedContainer, { top: -labelContainerHeight }];
-  return { style, onLayout: floating ? onLayout : undefined };
+  const top = floating ? -labelContainerHeight : 0;
+  const style = [floating ? styles.labelFloatingContainer : styles.labelFixedContainer, { top }];
+  return { style, onLayout: onLayout };
 };
