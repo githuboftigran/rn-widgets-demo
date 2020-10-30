@@ -92,13 +92,12 @@ const Slider = (
 
   const railContainerStyles = useMemo(() => {
     return [styles.railsContainer, { marginHorizontal: thumbWidth / 2 }];
-  }, [thumbWidth.current]);
+  }, [thumbWidth]);
 
   const [labelView, labelUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderLabel, isPressed, allowLabelOverflow);
   const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
   const lowThumb = renderThumb();
   const highThumb = renderThumb();
-  const rootStyles = useMemo(() => [style, styles.root], [style]);
 
   const labelContainerProps = useLabelContainerProps(floatingLabel);
 
@@ -158,7 +157,7 @@ const Slider = (
         });
       },
 
-      onPanResponderMove: Animated.event([null, { moveX: pointerX }]),
+      onPanResponderMove: Animated.event([null, { moveX: pointerX }], { useNativeDriver: false }),
 
       onPanResponderRelease: () => {
         setPressed(false);
@@ -166,7 +165,7 @@ const Slider = (
     }), [pointerX, inPropsRef, thumbWidth, disableRange, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate, updateSelectedRail]);
 
   return (
-    <View style={rootStyles}>
+    <View style={style}>
       <View {...labelContainerProps}>
         {labelView}
         {notchView}

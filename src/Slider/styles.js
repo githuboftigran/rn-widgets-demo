@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  root: {
-    width: 224,
-  },
   controlsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
