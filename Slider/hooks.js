@@ -104,13 +104,12 @@ export const useThumbFollower = (containerWidthRef, gestureStateRef, renderConte
   return [follower, update];
 };
 
-export const useSelectedRail = (inPropsRef, containerWidthRef, thumbWidthRef, disableRange) => {
+export const useSelectedRail = (inPropsRef, containerWidthRef, thumbWidth, disableRange) => {
   const { current: left } = useRef(new Animated.Value(0));
   const { current: right } = useRef(new Animated.Value(0));
   const update = () => {
     const { low, high, min, max } = inPropsRef.current;
     const { current: containerWidth } = containerWidthRef;
-    const { current: thumbWidth } = thumbWidthRef;
     const fullScale = (max - min) / (containerWidth - thumbWidth);
     const leftValue = (low - min) / fullScale;
     const rightValue = (max - high) / fullScale;

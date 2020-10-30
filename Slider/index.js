@@ -28,7 +28,6 @@ const Slider = (
     renderRailSelected,
   }
 ) => {
-
   const { inPropsRef, setLow, setHigh } = useLowHigh(lowProp, disableRange ? max : highProp, min, max, step);
   const lowThumbXRef = useRef(new Animated.Value(0));
   const highThumbXRef = useRef(new Animated.Value(0));
@@ -40,13 +39,12 @@ const Slider = (
   const [isPressed, setPressed] = useState(false);
 
   const containerWidthRef = useRef(0);
-  const thumbWidthRef = useRef(0);
+  const [thumbWidth, setThumbWidth] = useState(0);
 
-  const [selectedRailStyle, selectedRailUpdate] = useSelectedRail(inPropsRef, containerWidthRef, thumbWidthRef, disableRange);
+  const [selectedRailStyle, updateSelectedRail] = useSelectedRail(inPropsRef, containerWidthRef, thumbWidth, disableRange);
 
   const updateThumbs = useCallback(() => {
     const { current: containerWidth } = containerWidthRef;
-    const { current: thumbWidth } = thumbWidthRef;
     if (!thumbWidth || !containerWidth) {
       return;
     }
@@ -59,9 +57,9 @@ const Slider = (
     const { current: lowThumbX } = lowThumbXRef;
     const lowPosition = (low - min) / (max - min) * (containerWidth - thumbWidth);
     lowThumbX.setValue(lowPosition);
-    selectedRailUpdate();
+    updateSelectedRail();
     onValueChanged(low, high);
-  }, [disableRange, inPropsRef, max, min, onValueChanged, selectedRailUpdate]);
+  }, [disableRange, inPropsRef, max, min, onValueChanged, thumbWidth, updateSelectedRail]);
 
   useEffect(() => {
     const { low, high } = inPropsRef.current;
@@ -71,7 +69,12 @@ const Slider = (
   }, [highProp, inPropsRef, lowProp, updateThumbs]);
 
   const handleContainerLayout = useWidthLayout(containerWidthRef, updateThumbs);
-  const handleThumbLayout = useWidthLayout(thumbWidthRef, updateThumbs);
+  const handleThumbLayout = useCallback(({ nativeEvent }) => {
+    const { layout: {width}} = nativeEvent;
+    if (thumbWidth !== width) {
+      setThumbWidth(width);
+    }
+  }, [thumbWidth]);
 
   const lowStyles = useMemo(() => {
     return [
@@ -88,8 +91,8 @@ const Slider = (
   }, [disableRange, highThumbX]);
 
   const railContainerStyles = useMemo(() => {
-    return [styles.railsContainer, { marginHorizontal: thumbWidthRef.current / 2 }];
-  }, [thumbWidthRef.current]);
+    return [styles.railsContainer, { marginHorizontal: thumbWidth / 2 }];
+  }, [thumbWidth.current]);
 
   const [labelView, labelUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderLabel, isPressed, allowLabelOverflow);
   const [notchView, notchUpdate] = useThumbFollower(containerWidthRef, gestureStateRef, renderNotch, isPressed, allowLabelOverflow);
@@ -120,7 +123,6 @@ const Slider = (
         const containerX = pageX - downX;
 
         const { low, high, min, max } = inPropsRef.current;
-        const thumbWidth = thumbWidthRef.current;
         const containerWidth = containerWidthRef.current;
 
         const lowPosition = thumbWidth / 2 + (low - min) / (max - min) * (containerWidth - thumbWidth);
@@ -146,7 +148,7 @@ const Slider = (
           (isLow ? setLow : setHigh)(value);
           labelUpdate && labelUpdate(gestureStateRef.current.lastPosition, value);
           notchUpdate && notchUpdate(gestureStateRef.current.lastPosition, value);
-          selectedRailUpdate(isLow ? value : low, isLow ? high : value);
+          updateSelectedRail(isLow ? value : low, isLow ? high : value);
         };
         handlePositionChange(downX);
         pointerX.removeAllListeners();
@@ -161,7 +163,7 @@ const Slider = (
       onPanResponderRelease: () => {
         setPressed(false);
       },
-    }), [pointerX, inPropsRef, disableRange, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate, selectedRailUpdate]);
+    }), [pointerX, inPropsRef, thumbWidth, disableRange, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate, updateSelectedRail]);
 
   return (
     <View style={rootStyles}>
