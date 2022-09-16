@@ -19,14 +19,17 @@ const SliderScreen = () => {
   const [max, setMax] = useState(100);
   const [floatingLabel, setFloatingLabel] = useState(false);
 
-  const renderThumb = useCallback(() => <Thumb />, []);
+  const renderThumb = useCallback(
+    (name: 'high' | 'low') => <Thumb name={name} />,
+    [],
+  );
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <RailSelected />, []);
   const renderLabel = useCallback(value => <Label text={value} />, []);
   const renderNotch = useCallback(() => <Notch />, []);
-  const handleValueChange = useCallback((low, high) => {
-    setLow(low);
-    setHigh(high);
+  const handleValueChange = useCallback((lowValue, highValue) => {
+    setLow(lowValue);
+    setHigh(highValue);
   }, []);
   const toggleRangeEnabled = useCallback(
     () => setRangeDisabled(!rangeDisabled),
